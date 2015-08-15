@@ -1,0 +1,62 @@
+# used for testing Vitals fragment
+{"crotch temperature":1, "head temperature":20, "armpits temperature":15, "heart rate": 10}
+
+# used for testing cooling fragment
+{"flow rate":50, "water temperature":5.3}
+
+# used for testing battery fragment
+{"8 AH battery": 20, "2 AH battery": 15, "phone battery": 100, "hud battery": 82.3}
+
+# used for testing warnings
+{"warnings": {"critical high body temperature" : "help i am melting"}}
+{"warnings": {"critical low body temperature" : "help i am melting", "critical high body temperature" : "help i am melting"}}
+
+
+
+
+
+
+
+
+# this shows all the possible values that can be expressed in a json message.
+# this is subject to change.
+{
+    "lights":("on","off","auto"),
+    "head lights red":("on","off"),
+    "head lights white":("on","off"),
+    "head fans":("on","off"),
+    "water pump":("auto","off"),
+    "peltier":("auto","off"),
+    "head temperature":(double),
+    "armpits temperature":(double),
+    "crotch temperature":(double),
+    "water temperature":(double),
+    "flow rate":(int),
+    "heart rate": (int),
+    "8 AH battery": (int),
+    "2 AH battery": (int),
+    "hud battery": (double),
+    "phone battery": (int),
+    "play sound": (string),
+    "configuration": {
+        "android":(MAC Address(string)),
+        "glass":(MAC Address(string)),
+    }
+    "warnings": {
+        "critical high body temperature": (string),
+        "high body temperature": (string),
+        "critical low body temperature": (string),
+        "low body temperature": (string),
+        "critical high head temperature": (string),
+        "high head temperature": (string),
+        "critical low head temperature": (string),
+        "low head temperature": (string),
+        "high water temperature": (string),
+        "low water temperature": (string),
+        "low water flow": (string),
+        "low 8AH battery warning": (string),
+        "low 2AH battery warning": (string),
+        "low hud battery warning": (string),
+        "low phone battery warning": (string),
+    }
+}
