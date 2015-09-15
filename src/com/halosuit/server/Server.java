@@ -21,8 +21,6 @@ public class Server {
 	
 	private Socket androidDevice;
 	
-	private JSONGenerator jsonGenerator = new JSONGenerator();
-	
 	private List<InputListener> inputListeners = new LinkedList<InputListener>();
 	
 	public static final int MESSAGE_BYTE_LENGTH = 1024;
@@ -119,12 +117,21 @@ public class Server {
 		inputListeners.add(listener);
 	} 
 	
+	private static int disconnectCharacterCount = 0; // used to count # ']' brackets which are sent when the C socket disconnects.	
+	private static char disconnectCharacter = '￿';
 	private void listenForMessage() {
-		
 		char inputCharacter;
 		while(androidDevice.isConnected()) {
 			try {
 				inputCharacter = (char) input.read();
+				System.out.print(inputCharacter);
+				if(inputCharacter == disconnectCharacter) {
+					disconnectCharacterCount++;
+					if(disconnectCharacterCount >= 5) {
+						System.out.println("exiting application because client disconnected");
+						System.exit(1);
+					}
+				}
 				
 				for(InputListener listener : inputListeners) {
 					listener.update(inputCharacter);
