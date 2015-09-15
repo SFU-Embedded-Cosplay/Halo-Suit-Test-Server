@@ -37,6 +37,8 @@
     "2 AH battery": (int),
     "hud battery": (double),
     "phone battery": (int),
+    "voltage1" : (double), # only works for hardware testing
+    "voltage2" : (double), # only works for hardware testing
     "play sound": (string),
     "configuration": {
         "android":(MAC Address(string)),
