@@ -18,6 +18,9 @@ In order to use the Test server to test the Android device you must make a numbe
 When using the mock hardware module in the Halo-Suit-BeagleBones you need to use the Halo-Suit-Test-Server in order to alter the hardware values and read any messages the beaglebone sends in response.  The only change you should have to perform is compiling with make localTest rather than make.
 
 1. Launch the Halo-Suit-Test-Server application and click the button labelled **Wait for connection**.
-2. SSH into the BeagleBone and compile the Halo-Suit-BeagleBone application using **make localTest**.
-3. Launch the suitcontroller application that is generated using **./suitcontroller**.
-4. You should now be connected to the mock server and can send JSON messages from the server to the BeagleBone to alter the hardware values.  
+2. Connect the BeagleBone to your computing using the **ethernet over usb connector**.
+ 1. If you connect the beaglebone using another method, such as an ethernet cable, the connection between the Test Server and BeagleBone may not work and you will liekly have to change the IP address in the mockHardware.c file.
+3. SSH into the BeagleBone using **ssh root@192.168.7.2**
+4. Compile the Halo-Suit-BeagleBone application using **make localTest**.
+5. Launch the suitcontroller application that is generated using **./suitcontroller**.
+6. You should now be connected to the mock server and can send JSON messages from the server to the BeagleBone to alter the hardware values.  
