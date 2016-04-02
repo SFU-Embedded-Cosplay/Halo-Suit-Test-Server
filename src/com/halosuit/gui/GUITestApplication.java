@@ -2,6 +2,9 @@ package com.halosuit.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Event;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -11,7 +14,7 @@ import javax.swing.JTextField;
 
 import com.halosuit.server.Server;
 
-public class GUITestApplication extends JFrame {
+public class GUITestApplication extends JFrame implements KeyListener{
 
 	private Server server;
 	
@@ -43,7 +46,6 @@ public class GUITestApplication extends JFrame {
 		sendButton.setPreferredSize(new Dimension(50, 50));
 		
 		
-		
 		sendButton.addActionListener((e) -> {
 			sendMessageToPhone(serverMessageBox.getText());
 			serverMessageBox.setText("");
@@ -60,6 +62,8 @@ public class GUITestApplication extends JFrame {
 		add(listenForConnectionButton, BorderLayout.EAST);
 		
 		add(sendButton, BorderLayout.SOUTH);
+		
+		serverMessageBox.addKeyListener(this);
 		
 	}
 	
@@ -83,6 +87,25 @@ public class GUITestApplication extends JFrame {
 			//should not happen at the moment, find a way to deal with this.
 			e.printStackTrace();
 		}
+	}
+
+	
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == Event.ENTER) {
+			sendButton.doClick();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
 	}
 	
 }
