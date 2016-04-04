@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -29,6 +30,14 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	
 	private JTextArea androidAppInputTextArea = new JTextArea();
 	
+	private JPanel sendMessagePanel = new JPanel();
+	
+	
+	private static final int SEND_BUTTON_HEIGHT = 20;
+	private static final int SEND_BUTTON_WIDTH = 80;
+	
+	private static final int SEND_MESSAGE_BOX_PADDING =  30;
+	
 	public GUITestApplication(Server server) {
 		this.server = server;
 		
@@ -43,7 +52,11 @@ public class GUITestApplication extends JFrame implements KeyListener{
 		server.addInputListener((inputCharacter)->addInputCharacter(inputCharacter));
 		
 		
-		sendButton.setPreferredSize(new Dimension(50, 50));
+		sendButton.setPreferredSize(new Dimension(SEND_BUTTON_WIDTH, SEND_BUTTON_HEIGHT));
+		serverMessageBox.setPreferredSize(new Dimension(WIDTH  - SEND_BUTTON_WIDTH - SEND_MESSAGE_BOX_PADDING, SEND_BUTTON_HEIGHT));
+		
+		sendMessagePanel.add(serverMessageBox);
+		sendMessagePanel.add(sendButton);
 		
 		
 		sendButton.addActionListener((e) -> {
@@ -55,14 +68,12 @@ public class GUITestApplication extends JFrame implements KeyListener{
 			new Thread(()->connectToServer()).start();
 		});
 		
-		add(serverMessageBox, BorderLayout.NORTH);
+		add(sendMessagePanel, BorderLayout.NORTH);
 		
 		add(androidAppInputTextArea, BorderLayout.CENTER);
 		
 		add(listenForConnectionButton, BorderLayout.EAST);
-		
-		add(sendButton, BorderLayout.SOUTH);
-		
+				
 		serverMessageBox.addKeyListener(this);
 		
 	}
