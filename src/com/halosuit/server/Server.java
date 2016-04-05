@@ -29,7 +29,7 @@ public class Server {
 	
 	public Server(int port) throws IOException{
 		this.port = port;
-		
+
 		serverSocket = new ServerSocket(port);
 
 		
@@ -118,7 +118,7 @@ public class Server {
 	} 
 	
 	private static int disconnectCharacterCount = 0; // used to count # ']' brackets which are sent when the C socket disconnects.	
-	private static char disconnectCharacter = '￿';
+	private static char disconnectCharacter = 0xFFFF; // This is the magic value that the socket sends when it disconnects unexpectedly. 
 	private void listenForMessage() {
 		char inputCharacter;
 		while(androidDevice.isConnected()) {
