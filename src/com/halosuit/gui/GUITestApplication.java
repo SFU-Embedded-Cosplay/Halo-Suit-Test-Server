@@ -28,6 +28,8 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	private JTextField serverMessageBox = new JTextField();
 	private JButton listenForConnectionButton = new JButton("Wait for connection");
 	
+	private JButton clearButton =  new JButton("Clear");
+	
 	private JTextArea androidAppInputTextArea = new JTextArea();
 	
 	private JPanel sendMessagePanel = new JPanel();
@@ -68,11 +70,17 @@ public class GUITestApplication extends JFrame implements KeyListener{
 			new Thread(()->connectToServer()).start();
 		});
 		
+		clearButton.addActionListener((e)->{
+			androidAppInputTextArea.setText(""); // clears text area
+		});
+		
 		add(sendMessagePanel, BorderLayout.NORTH);
 		
 		add(androidAppInputTextArea, BorderLayout.CENTER);
 		
 		add(listenForConnectionButton, BorderLayout.EAST);
+		
+		add(clearButton, BorderLayout.SOUTH);
 				
 		serverMessageBox.addKeyListener(this);
 		
