@@ -34,30 +34,6 @@ public class Server {
 
 		
 		System.out.println("reading data:");
-		
-//		while(true) {
-//			char character = (char) input.read();
-//			System.out.print(character);
-//			
-//			if(character == '}') {
-//				System.out.println();
-//				String message = jsonGenerator.makeJSON("flow rate", "50");
-//				
-//				System.out.println("sending message: " + message);
-//				
-//				byte[] messageBytes = message.getBytes();
-//				
-//				byte[] buffer = new byte[1024];
-//				
-//				for(int i = 0; i < messageBytes.length; i++) {
-//					buffer[i] = messageBytes[i];
-//				}
-//				
-//				sendMessage(buffer);
-//				
-//			}
-//		}
-		
 	}
 	
 	
