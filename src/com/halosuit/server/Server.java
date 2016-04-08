@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.halosuit.json.JSONGenerator;
+import com.halosuit.utils.Logger;
 
 
 public class Server {
@@ -26,6 +27,19 @@ public class Server {
 	public static final int MESSAGE_BYTE_LENGTH = 1024;
 	
 	private boolean isConnecting = false;
+
+	private Logger log = new Logger() {
+
+		@Override
+		public void println(String message) {
+			// TODO Auto-generated method stub
+			System.out.println(message);
+		}
+
+		@Override
+		public void print(String message) {
+			System.out.print(message);
+		}};
 	
 	public Server(int port) throws IOException{
 		this.port = port;
@@ -33,7 +47,7 @@ public class Server {
 		serverSocket = new ServerSocket(port);
 
 		
-		System.out.println("reading data:");
+		log.println("reading data:");
 	}
 	
 	
@@ -42,7 +56,7 @@ public class Server {
 	 * @param message - must not be longer than 1024 characters (I think)
 	 * */
 	public void sendMessage(String message) throws IOException {		
-		System.out.println("sending message: " + message);
+		log.println("sending message: " + message);
 		
 		byte[] messageBytes = message.getBytes();
 		
@@ -65,23 +79,23 @@ public class Server {
 	
 	public void listenForConnection() throws IOException {
 		if(androidDevice != null && androidDevice.isConnected()) {
-			System.out.println("aborting additional attempt to listen for android device since since server is already connected");
+			log.println("aborting additional attempt to listen for android device since since server is already connected");
 			isConnecting = false;
 			return;
 		}
 		
 		if(isConnecting) {
-			System.out.println("aborting additional attempt to listen for android device since server is already waiting for connection");
+			log.println("aborting additional attempt to listen for android device since server is already waiting for connection");
 			return;
 		}
 		
 		isConnecting = true;
 		
-		System.out.println("waiting for user to connect on port: " + port);
+		log.println("waiting for user to connect on port: " + port);
 		
 		androidDevice = serverSocket.accept();
 		
-		System.out.println("androidDevice has connected");
+		log.println("androidDevice has connected");
 		
 		output = new PrintWriter(androidDevice.getOutputStream());
 		input = new BufferedReader(new InputStreamReader(androidDevice.getInputStream()));
@@ -100,11 +114,11 @@ public class Server {
 		while(androidDevice.isConnected()) {
 			try {
 				inputCharacter = (char) input.read();
-				System.out.print(inputCharacter);
+				log.print(Character.toString(inputCharacter));
 				if(inputCharacter == disconnectCharacter) {
 					disconnectCharacterCount++;
 					if(disconnectCharacterCount >= 5) {
-						System.out.println("exiting application because client disconnected");
+						log.println("exiting application because client disconnected");
 						System.exit(1);
 					}
 				}
@@ -117,6 +131,11 @@ public class Server {
 			}
 			
 		}
+	}
+
+
+	public void setLog(Logger log) {
+		this.log  = log;
 	}
 	
 }

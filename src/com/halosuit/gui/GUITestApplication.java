@@ -34,6 +34,8 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	
 	private JPanel sendMessagePanel = new JPanel();
 	
+	private LogDisplay log;
+	
 	
 	private static final int SEND_BUTTON_HEIGHT = 20;
 	private static final int SEND_BUTTON_WIDTH = 80;
@@ -80,7 +82,8 @@ public class GUITestApplication extends JFrame implements KeyListener{
 		
 		add(listenForConnectionButton, BorderLayout.EAST);
 		
-		add(clearButton, BorderLayout.SOUTH);
+		add(clearButton, BorderLayout.WEST);
+		
 				
 		serverMessageBox.addKeyListener(this);
 		
@@ -106,6 +109,12 @@ public class GUITestApplication extends JFrame implements KeyListener{
 			//should not happen at the moment, find a way to deal with this.
 			e.printStackTrace();
 		}
+	}
+	
+	public void addLogDisplay(LogDisplay log) {
+		this.log = log;
+		
+		add(log, BorderLayout.SOUTH);
 	}
 
 	
