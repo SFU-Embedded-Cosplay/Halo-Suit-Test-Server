@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.halosuit.json.JSONGenerator;
 import com.halosuit.utils.Logger;
@@ -22,7 +23,7 @@ public class Server {
 	
 	private Socket androidDevice;
 	
-	private List<InputListener> inputListeners = new LinkedList<InputListener>();
+	private List<Consumer<Character>> inputListeners = new LinkedList<Consumer<Character>>();
 	
 	public static final int MESSAGE_BYTE_LENGTH = 1024;
 	
@@ -103,7 +104,7 @@ public class Server {
 		new Thread(()->listenForMessage()).start();
 	}
 	
-	public void addInputListener(InputListener listener) {
+	public void addInputListener(Consumer<Character> listener) {
 		inputListeners.add(listener);
 	} 
 	
@@ -123,8 +124,8 @@ public class Server {
 					}
 				}
 				
-				for(InputListener listener : inputListeners) {
-					listener.update(inputCharacter);
+				for(Consumer<Character> listener : inputListeners) {
+					listener.accept(inputCharacter);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
