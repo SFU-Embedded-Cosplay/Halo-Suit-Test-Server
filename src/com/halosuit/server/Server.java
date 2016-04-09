@@ -20,7 +20,7 @@ public class Server {
 	private PrintWriter output;
 	private BufferedReader input;
 	
-	private Socket androidDevice;
+	private Socket client;
 	
 	private List<Consumer<Character>> inputListeners = new LinkedList<Consumer<Character>>();
 	
@@ -68,7 +68,7 @@ public class Server {
 		
 		assert(buffer.length <= MESSAGE_BYTE_LENGTH);
 		
-		androidDevice.getOutputStream().write(buffer);
+		client.getOutputStream().write(buffer);
 
 	}
 	
@@ -78,7 +78,7 @@ public class Server {
 	}
 	
 	public void listenForConnection() throws IOException {
-		if(androidDevice != null && androidDevice.isConnected()) {
+		if(client != null && client.isConnected()) {
 			log.println("aborting additional attempt to listen for android device since since server is already connected");
 			isConnecting = false;
 			return;
@@ -93,12 +93,12 @@ public class Server {
 		
 		log.println("waiting for user to connect on port: " + port);
 		
-		androidDevice = serverSocket.accept();
+		client = serverSocket.accept();
 		
-		log.println("androidDevice has connected");
+		log.println("client has connected");
 		
-		output = new PrintWriter(androidDevice.getOutputStream());
-		input = new BufferedReader(new InputStreamReader(androidDevice.getInputStream()));
+		output = new PrintWriter(client.getOutputStream());
+		input = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		
 		new Thread(()->listenForMessage()).start();
 	}
@@ -111,7 +111,7 @@ public class Server {
 	private static char disconnectCharacter = 0xFFFF; // This is the magic value that the socket sends when it disconnects unexpectedly. 
 	private void listenForMessage() {
 		char inputCharacter;
-		while(androidDevice.isConnected()) {
+		while(client.isConnected()) {
 			try {
 				inputCharacter = (char) input.read();
 				log.print(Character.toString(inputCharacter));
