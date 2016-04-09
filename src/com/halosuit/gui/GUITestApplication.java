@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -33,6 +34,9 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	private JTextArea androidAppInputTextArea = new JTextArea();
 	
 	private JPanel sendMessagePanel = new JPanel();
+	
+	private JTabbedPane tabbedPane = new JTabbedPane();
+ 
 	
 	private LogDisplay log;
 	
@@ -77,12 +81,13 @@ public class GUITestApplication extends JFrame implements KeyListener{
 		});
 		
 		add(sendMessagePanel, BorderLayout.NORTH);
+				
+		tabbedPane.addTab("Server Status", listenForConnectionButton);
+		tabbedPane.addTab("Client Messages", androidAppInputTextArea);
 		
-		add(androidAppInputTextArea, BorderLayout.CENTER);
-		
-		add(listenForConnectionButton, BorderLayout.EAST);
-		
-		add(clearButton, BorderLayout.WEST);
+		add(tabbedPane, BorderLayout.CENTER);
+				
+		add(clearButton, BorderLayout.SOUTH);
 		
 				
 		serverMessageBox.addKeyListener(this);
@@ -114,7 +119,7 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	public void addLogDisplay(LogDisplay log) {
 		this.log = log;
 		
-		add(log, BorderLayout.SOUTH);
+		tabbedPane.addTab("Log", log);
 	}
 
 	
