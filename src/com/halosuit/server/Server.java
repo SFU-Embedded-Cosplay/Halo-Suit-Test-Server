@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -78,7 +79,7 @@ public class Server {
 	}
 	
 	public void listenForConnection() throws IOException {
-		if(client != null && client.isConnected()) {
+		if(isConnected()) {
 			log.println("aborting additional attempt to listen for android device since since server is already connected");
 			isConnecting = false;
 			return;
@@ -97,6 +98,8 @@ public class Server {
 		
 		log.println("client has connected");
 		
+		isConnecting = false;
+		
 		output = new PrintWriter(client.getOutputStream());
 		input = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		
@@ -107,29 +110,40 @@ public class Server {
 		inputListeners.add(listener);
 	} 
 	
-	private static int disconnectCharacterCount = 0; // used to count # ']' brackets which are sent when the C socket disconnects.	
-	private static char disconnectCharacter = 0xFFFF; // This is the magic value that the socket sends when it disconnects unexpectedly. 
+	public boolean isConnected() {
+		return client != null && !client.isClosed();
+	}
+	
 	private void listenForMessage() {
 		char inputCharacter;
-		while(client.isConnected()) {
+		while(isConnected()) {
 			try {
 				inputCharacter = (char) input.read();
 				log.print(Character.toString(inputCharacter));
-				if(inputCharacter == disconnectCharacter) {
-					disconnectCharacterCount++;
-					if(disconnectCharacterCount >= 5) {
-						log.println("exiting application because client disconnected");
-						System.exit(1);
-					}
-				}
 				
 				for(Consumer<Character> listener : inputListeners) {
 					listener.accept(inputCharacter);
 				}
+			} catch (SocketException e) { // pipe is broken and client disconnected
+				disconnectClient();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	private void disconnectClient() {
+		try {
+			client.close();
 			
+			client = null;
+			input = null;
+			output = null;
+			
+			isConnecting = false;
+			
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 
