@@ -117,6 +117,9 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	}
 	
 	public void addLogDisplay(LogDisplay log) {
+		// remove old log. does nothing if old log was not added / null.
+		tabbedPane.remove(this.log); 
+		
 		this.log = log;
 		
 		tabbedPane.addTab("Log", log);
