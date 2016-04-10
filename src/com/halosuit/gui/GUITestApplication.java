@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -103,17 +104,25 @@ public class GUITestApplication extends JFrame implements KeyListener{
 			server.listenForConnection();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();			
 		}
 	}
 	
 	private void sendMessageToPhone(String message) {		
 		try {
-			server.sendMessage(message);			
+			if(server.isConnected()){
+				server.sendMessage(message);
+			} else {
+				JOptionPane.showMessageDialog(this,
+					    "Error sending message to client. Ensure you are connected to the client",
+					    "Send Message Error",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+			
 		} catch (IOException e) {
 			//should not happen at the moment, find a way to deal with this.
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public void addLogDisplay(LogDisplay log) {
