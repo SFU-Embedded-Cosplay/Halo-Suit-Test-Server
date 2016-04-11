@@ -1,4 +1,4 @@
-package com.halosuit.gui;
+package main.halosuit.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,7 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.halosuit.server.Server;
+import main.halosuit.server.Server;
 
 public class GUITestApplication extends JFrame implements KeyListener{
 

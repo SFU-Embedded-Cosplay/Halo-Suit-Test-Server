@@ -1,4 +1,4 @@
-package com.halosuit.json;
+package main.halosuit.json;
 
 public class JSONGenerator {
 
