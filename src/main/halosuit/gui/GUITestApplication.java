@@ -35,6 +35,7 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	private JTextArea androidAppInputTextArea = new JTextArea();
 	
 	private JPanel sendMessagePanel = new JPanel();
+	private JSONMessageBuilderPanel messageBuilderPanel =  new JSONMessageBuilderPanel();
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
  
@@ -85,6 +86,7 @@ public class GUITestApplication extends JFrame implements KeyListener{
 				
 		tabbedPane.addTab("Server Status", listenForConnectionButton);
 		tabbedPane.addTab("Client Messages", androidAppInputTextArea);
+		tabbedPane.addTab("Message Builder", messageBuilderPanel);
 		
 		add(tabbedPane, BorderLayout.CENTER);
 				
