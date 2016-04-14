@@ -1,9 +1,9 @@
-package test.halosuit.server;
+package test.halosuit.gui.MessageBuilder;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
 import main.halosuit.gui.MessageBuilder.MessageBuilderSwitch;
+
+import org.junit.Test;
 
 public class MessageBuilderSwitchTest {
 
