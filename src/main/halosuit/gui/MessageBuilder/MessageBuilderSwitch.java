@@ -1,7 +1,5 @@
 package main.halosuit.gui.MessageBuilder;
 
-import java.util.List;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

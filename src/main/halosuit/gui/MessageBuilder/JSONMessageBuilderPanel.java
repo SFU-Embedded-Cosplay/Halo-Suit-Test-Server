@@ -3,8 +3,6 @@ package main.halosuit.gui.MessageBuilder;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Type;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -14,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonSyntaxException;
 
 
 public class JSONMessageBuilderPanel extends JPanel {

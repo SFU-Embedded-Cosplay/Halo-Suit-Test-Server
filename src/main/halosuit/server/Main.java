@@ -3,7 +3,6 @@ import java.io.IOException;
 
 import main.halosuit.gui.TestServerFrame;
 import main.halosuit.gui.LogDisplay;
-import main.halosuit.utils.Logger;
 
 public class Main {
 	
