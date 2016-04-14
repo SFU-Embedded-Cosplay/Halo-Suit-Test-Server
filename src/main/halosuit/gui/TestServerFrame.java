@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 import main.halosuit.server.Server;
 
-public class GUITestApplication extends JFrame implements KeyListener{
+public class TestServerFrame extends JFrame implements KeyListener{
 
 	private Server server;
 	
@@ -48,7 +48,7 @@ public class GUITestApplication extends JFrame implements KeyListener{
 	
 	private static final int SEND_MESSAGE_BOX_PADDING =  30;
 	
-	public GUITestApplication(Server server) {
+	public TestServerFrame(Server server) {
 		this.server = server;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

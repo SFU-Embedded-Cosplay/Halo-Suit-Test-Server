@@ -1,7 +1,7 @@
 package main.halosuit.server;
 import java.io.IOException;
 
-import main.halosuit.gui.GUITestApplication;
+import main.halosuit.gui.TestServerFrame;
 import main.halosuit.gui.LogDisplay;
 import main.halosuit.utils.Logger;
 
@@ -13,7 +13,7 @@ public class Main {
 		
 		int port = 8080;
 		Server server;
-		GUITestApplication gui;
+		TestServerFrame gui;
 		
 		LogDisplay log = new LogDisplay();
 		
@@ -24,7 +24,7 @@ public class Main {
 		try {
 			server = new Server(port);	
 						
-			gui = new GUITestApplication(server);
+			gui = new TestServerFrame(server);
 			
 			// add GUI based log to server and GUI
 			server.setLog(log);
