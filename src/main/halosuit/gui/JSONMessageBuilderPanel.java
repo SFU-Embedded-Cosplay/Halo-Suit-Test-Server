@@ -24,40 +24,28 @@ public class JSONMessageBuilderPanel extends JPanel {
 	JButton addButton = new JButton("Add");
 	
 	public JSONMessageBuilderPanel() {	
-		
 		setLayout(new GridLayout(10, 3, 10, 10));
+		json = getJsonObjectFromFile("res//PossibleJson.json");
 		
+		json.entrySet().forEach( entry -> {
 		
-        json = getJsonObjectFromFile("res//PossibleJson.json");
-        
-       json.entrySet().forEach( entry -> {
-    	   
-    	   System.out.println(entry.getKey());
-    	   System.out.println(entry.getValue());
-    	   
-    	   
-    	   if(entry.getValue().isJsonArray()) {
-    		   
-    		   Type listType = new TypeToken<List<String>>() {}.getType();
-    		   List<String> yourList = new Gson().fromJson(entry.getValue(), listType);
-    		   
-    		   
-    		   add(new MessageBuilderItem(entry.getKey(), yourList));
-    	   }
-    	   
-    	   
-       });
-
-		
-		
-		
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+			
+			if(entry.getValue().isJsonArray()) {
+				// extract string array from json array
+				String[] options = new Gson().fromJson(entry.getValue(), String[].class); 
+				
+				add(new MessageBuilderItem(entry.getKey(), options));
+			}
+		});
 		add(addButton);
 	}
 	
 	private JsonObject getJsonObjectFromFile(String fileName) {
 		JsonParser parser = new JsonParser();
-        JsonElement jsonElement = null;
-        
+		JsonElement jsonElement = null;
+		
 		try {
 			jsonElement = parser.parse(new FileReader("res//PossibleJson.json"));
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {

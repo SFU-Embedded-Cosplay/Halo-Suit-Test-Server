@@ -9,7 +9,7 @@ import javax.swing.JRadioButton;
 
 public class MessageBuilderItem extends JPanel{
 			
-	public MessageBuilderItem(String key, List<String> options) {
+	public MessageBuilderItem(String key, String[] options) {
 		add(new JLabel(key));
 		
 		ButtonGroup optionGroup = new ButtonGroup();
