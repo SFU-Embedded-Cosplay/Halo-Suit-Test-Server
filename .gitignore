@@ -5,3 +5,6 @@
 .settings/
 .classpath
 .project
+
+#exclude maven generated files
+/target/
