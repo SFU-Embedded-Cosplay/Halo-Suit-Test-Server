@@ -3,6 +3,8 @@ package main.halosuit.gui.MessageBuilder;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -21,6 +23,8 @@ public class JSONMessageBuilderPanel extends JPanel {
 	
 	JButton addButton = new JButton("Add");
 	
+	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
+	
 	public JSONMessageBuilderPanel() {	
 		setLayout(new GridLayout(10, 3));
 		json = getJsonObjectFromFile("res//PossibleJson.json");
@@ -34,9 +38,31 @@ public class JSONMessageBuilderPanel extends JPanel {
 				// extract string array from json array
 				String[] options = new Gson().fromJson(entry.getValue(), String[].class); 
 				
-				add(new MessageBuilderSwitch(entry.getKey(), options));
+				MessageBuilderSwitch item = new MessageBuilderSwitch(entry.getKey(), options);
+				
+				add(item);
+				messageBuilderItems.add(item);
 			}
 		});
+		
+		
+		addButton.addActionListener(e -> {
+			JsonObject object = new JsonObject();			
+			
+			for(MessageBuilderItem item : messageBuilderItems) {
+				String key = item.getKey();
+				JsonElement value = item.getSelectedValue();
+				
+				if(value != null) {
+					object.addProperty(key, value.getAsString());	
+				}				
+			}
+			
+			
+			System.out.println(object);
+		});
+		
+		
 		add(addButton);
 	}
 	
