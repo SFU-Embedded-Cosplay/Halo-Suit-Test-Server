@@ -5,18 +5,37 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class MessageBuilderSwitch extends JPanel{
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
+public class MessageBuilderSwitch extends JPanel implements MessageBuilderItem {
 			
+	JLabel key = null;
+	ButtonGroup optionGroup = new ButtonGroup();
+	
 	public MessageBuilderSwitch(String key, String[] options) {
-		add(new JLabel(key));
+		this.key = new JLabel(key);
 		
-		ButtonGroup optionGroup = new ButtonGroup();
+		add(this.key);
+		
 		for(String option : options) {
 			JRadioButton optionRadioButton = new JRadioButton(option);
+			optionRadioButton.setActionCommand(option);
 			
 			optionGroup.add(optionRadioButton);
-			
 			add(optionRadioButton);
 		}				
+	}
+
+	@Override
+	public String getKey() {
+		return key.getText();
+	}
+
+	@Override
+	public JsonElement getSelectedValue() {	
+		
+		String selectedButtonLabel = optionGroup.getSelection().getActionCommand();
+		return new Gson().toJsonTree(selectedButtonLabel);
 	}
 }
