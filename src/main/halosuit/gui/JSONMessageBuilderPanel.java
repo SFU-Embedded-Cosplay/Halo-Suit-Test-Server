@@ -36,7 +36,7 @@ public class JSONMessageBuilderPanel extends JPanel {
 				// extract string array from json array
 				String[] options = new Gson().fromJson(entry.getValue(), String[].class); 
 				
-				add(new MessageBuilderItem(entry.getKey(), options));
+				add(new MessageBuilderSwitch(entry.getKey(), options));
 			}
 		});
 		add(addButton);
