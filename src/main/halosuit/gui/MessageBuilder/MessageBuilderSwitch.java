@@ -11,8 +11,8 @@ import com.google.gson.JsonElement;
 
 public class MessageBuilderSwitch extends JPanel implements MessageBuilderItem {
 			
-	JLabel key = null;
-	ButtonGroup optionGroup = new ButtonGroup();
+	private JLabel key = null;
+	private ButtonGroup optionGroup = new ButtonGroup();
 	
 	public MessageBuilderSwitch(String key, String[] options) {
 		this.key = new JLabel(key);

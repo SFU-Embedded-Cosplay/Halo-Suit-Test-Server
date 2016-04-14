@@ -19,10 +19,8 @@ import com.google.gson.JsonSyntaxException;
 
 public class JSONMessageBuilderPanel extends JPanel {
 	
-	JsonObject json = new JsonObject();
-	
-	JButton addButton = new JButton("Add");
-	
+	private JsonObject json = new JsonObject();
+	private JButton addButton = new JButton("Add");
 	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
 	
 	public JSONMessageBuilderPanel() {	
