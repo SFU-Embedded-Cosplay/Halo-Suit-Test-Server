@@ -1,6 +1,7 @@
 package main.halosuit.gui.MessageBuilder;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -35,7 +36,13 @@ public class MessageBuilderSwitch extends JPanel implements MessageBuilderItem {
 	@Override
 	public JsonElement getSelectedValue() {	
 		
-		String selectedButtonLabel = optionGroup.getSelection().getActionCommand();
-		return new Gson().toJsonTree(selectedButtonLabel);
+		ButtonModel selectedRadioButton = optionGroup.getSelection();
+		
+		if(selectedRadioButton != null) {
+			String selectedButtonLabel = selectedRadioButton.getActionCommand();
+			return new Gson().toJsonTree(selectedButtonLabel);	
+		} else {
+			return null;
+		}
 	}
 }
