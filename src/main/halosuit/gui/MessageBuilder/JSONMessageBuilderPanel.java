@@ -1,4 +1,4 @@
-package main.halosuit.gui;
+package main.halosuit.gui.MessageBuilder;
 
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;

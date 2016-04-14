@@ -1,4 +1,4 @@
-package main.halosuit.gui;
+package main.halosuit.gui.MessageBuilder;
 
 import java.util.List;
 
