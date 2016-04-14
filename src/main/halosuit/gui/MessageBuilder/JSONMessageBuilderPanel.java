@@ -22,7 +22,7 @@ public class JSONMessageBuilderPanel extends JPanel {
 	JButton addButton = new JButton("Add");
 	
 	public JSONMessageBuilderPanel() {	
-		setLayout(new GridLayout(10, 3, 10, 10));
+		setLayout(new GridLayout(10, 3));
 		json = getJsonObjectFromFile("res//PossibleJson.json");
 		
 		json.entrySet().forEach( entry -> {
