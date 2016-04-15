@@ -1,4 +1,4 @@
-package main.halosuit.gui.MessageBuilder;
+package main.java.halosuit.gui.MessageBuilder;
 
 import com.google.gson.JsonElement;
 

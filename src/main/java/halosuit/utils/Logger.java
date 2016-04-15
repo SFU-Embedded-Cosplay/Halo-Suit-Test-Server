@@ -1,4 +1,4 @@
-package main.halosuit.utils;
+package main.java.halosuit.utils;
 
 public interface Logger {
 	void println(String message);

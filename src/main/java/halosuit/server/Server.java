@@ -1,4 +1,4 @@
-package main.halosuit.server;
+package main.java.halosuit.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import main.halosuit.utils.Logger;
+import main.java.halosuit.utils.Logger;
 
 
 public class Server {

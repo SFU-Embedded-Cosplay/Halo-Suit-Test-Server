@@ -1,8 +1,8 @@
-package main.halosuit.server;
+package main.java.halosuit.server;
 import java.io.IOException;
 
-import main.halosuit.gui.TestServerFrame;
-import main.halosuit.gui.LogDisplay;
+import main.java.halosuit.gui.LogDisplay;
+import main.java.halosuit.gui.TestServerFrame;
 
 public class Main {
 	

@@ -1,8 +1,8 @@
-package main.halosuit.gui;
+package main.java.halosuit.gui;
 
 import javax.swing.JTextArea;
 
-import main.halosuit.utils.Logger;
+import main.java.halosuit.utils.Logger;
 
 public class LogDisplay extends JTextArea implements Logger{
 
