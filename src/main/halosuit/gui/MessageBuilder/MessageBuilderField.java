@@ -1,7 +1,6 @@
 package main.halosuit.gui.MessageBuilder;
 
-import java.awt.Color;
-
+import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,9 +15,11 @@ public class MessageBuilderField extends JPanel implements MessageBuilderItem {
 	public MessageBuilderField(String key) {
 		this.key = new JLabel(key);
 		
-		add(this.key);
+		setLayout(new BorderLayout());
 		
-		add(textField);			
+		add(this.key, BorderLayout.WEST);
+		
+		add(textField, BorderLayout.CENTER);			
 	}
 
 	@Override

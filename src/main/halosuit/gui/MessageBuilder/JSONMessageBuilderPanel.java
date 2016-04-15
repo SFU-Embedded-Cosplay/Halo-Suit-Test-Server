@@ -1,5 +1,6 @@
 package main.halosuit.gui.MessageBuilder;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,10 +22,20 @@ public class JSONMessageBuilderPanel extends JPanel {
 	
 	private JsonObject json = new JsonObject();
 	private JButton addButton = new JButton("Add");
+	
+	
+	private JPanel messageBuilderPanel = new JPanel();
 	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
 	
 	public JSONMessageBuilderPanel() {	
-		setLayout(new GridLayout(10, 3));
+		
+		setLayout(new BorderLayout());
+		messageBuilderPanel.setLayout(new GridLayout(10, 3, 10, 5));
+		
+		add(addButton, BorderLayout.NORTH);
+		add(messageBuilderPanel, BorderLayout.CENTER);
+
+		
 		json = getJsonObjectFromFile("res//PossibleJson.json");
 		
 		json.entrySet().forEach( entry -> {
@@ -38,14 +49,14 @@ public class JSONMessageBuilderPanel extends JPanel {
 				
 				MessageBuilderSwitch item = new MessageBuilderSwitch(entry.getKey(), options);
 				
-				add(item);
+				messageBuilderPanel.add(item);
 				messageBuilderItems.add(item);
 			} else if(entry.getValue().isJsonPrimitive()) {
 				MessageBuilderField field = new MessageBuilderField(entry.getKey());
 				
 				
 				
-				add(field);
+				messageBuilderPanel.add(field);
 				messageBuilderItems.add(field);
 			}
 		});
@@ -67,9 +78,6 @@ public class JSONMessageBuilderPanel extends JPanel {
 			
 			System.out.println(object);
 		});
-		
-		
-		add(addButton);
 	}
 	
 	private JsonObject getJsonObjectFromFile(String fileName) {

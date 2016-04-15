@@ -1,5 +1,7 @@
 package main.halosuit.gui.MessageBuilder;
 
+import java.awt.GridLayout;
+
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.JLabel;
@@ -16,6 +18,8 @@ public class MessageBuilderSwitch extends JPanel implements MessageBuilderItem {
 	
 	public MessageBuilderSwitch(String key, String[] options) {
 		this.key = new JLabel(key);
+		
+		setLayout(new GridLayout());
 		
 		add(this.key);
 		
