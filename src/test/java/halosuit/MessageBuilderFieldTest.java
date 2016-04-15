@@ -1,7 +1,7 @@
-package test.halosuit.gui.MessageBuilder;
+package test.java.halosuit;
 
 import static org.junit.Assert.*;
-import main.halosuit.gui.MessageBuilder.MessageBuilderField;
+import main.java.halosuit.gui.MessageBuilder.MessageBuilderField;
 
 import org.junit.Test;
 

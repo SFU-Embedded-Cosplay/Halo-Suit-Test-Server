@@ -1,7 +1,7 @@
-package test.halosuit.gui.MessageBuilder;
+package test.java.halosuit;
 
 import static org.junit.Assert.assertEquals;
-import main.halosuit.gui.MessageBuilder.MessageBuilderSwitch;
+import main.java.halosuit.gui.MessageBuilder.MessageBuilderSwitch;
 
 import org.junit.Test;
 
