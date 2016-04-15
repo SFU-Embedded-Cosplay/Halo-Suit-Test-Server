@@ -1,13 +1,11 @@
-package main.java.halosuit.server;
+package main.java.halosuit;
 import java.io.IOException;
 
 import main.java.halosuit.gui.LogDisplay;
 import main.java.halosuit.gui.TestServerFrame;
+import main.java.halosuit.server.Server;
 
 public class Main {
-	
-	
-	
 	public static void main(String args[]) {
 		
 		int port = 8080;
