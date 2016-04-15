@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -27,7 +28,11 @@ public class JSONMessageBuilderPanel extends JPanel {
 	private JPanel messageBuilderPanel = new JPanel();
 	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
 	
-	public JSONMessageBuilderPanel() {	
+	Consumer<String> addBuildMessageCallback = null;
+	
+	public JSONMessageBuilderPanel(Consumer<String> addBuildMessageCallback) {	
+		this.addBuildMessageCallback = addBuildMessageCallback;
+		
 		
 		setLayout(new BorderLayout());
 		messageBuilderPanel.setLayout(new GridLayout(10, 3, 10, 5));
@@ -76,7 +81,7 @@ public class JSONMessageBuilderPanel extends JPanel {
 			}
 			
 			
-			System.out.println(object);
+			addBuildMessageCallback.accept(object.toString());
 		});
 	}
 	

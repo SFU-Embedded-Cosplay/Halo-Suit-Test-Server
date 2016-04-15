@@ -31,12 +31,14 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	private JTextField serverMessageBox = new JTextField();
 	private JButton listenForConnectionButton = new JButton("Wait for connection");
 	
-	private JButton clearButton =  new JButton("Clear");
+	private JButton clearButton = new JButton("Clear");
 	
 	private JTextArea androidAppInputTextArea = new JTextArea();
 	
 	private JPanel sendMessagePanel = new JPanel();
-	private JSONMessageBuilderPanel messageBuilderPanel =  new JSONMessageBuilderPanel();
+	private JSONMessageBuilderPanel messageBuilderPanel =  new JSONMessageBuilderPanel((message) -> {
+		serverMessageBox.setText(message);
+	});
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
  
