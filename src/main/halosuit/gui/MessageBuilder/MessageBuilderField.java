@@ -21,6 +21,10 @@ public class MessageBuilderField extends JPanel implements MessageBuilderItem {
 		
 		add(textField, BorderLayout.CENTER);			
 	}
+	
+	public void setFieldValue(String text) {
+		textField.setText(text);
+	}
 
 	@Override
 	public String getKey() {
