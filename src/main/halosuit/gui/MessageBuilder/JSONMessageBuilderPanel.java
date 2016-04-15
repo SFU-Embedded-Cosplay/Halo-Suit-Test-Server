@@ -40,6 +40,13 @@ public class JSONMessageBuilderPanel extends JPanel {
 				
 				add(item);
 				messageBuilderItems.add(item);
+			} else if(entry.getValue().isJsonPrimitive()) {
+				MessageBuilderField field = new MessageBuilderField(entry.getKey());
+				
+				
+				
+				add(field);
+				messageBuilderItems.add(field);
 			}
 		});
 		
@@ -52,7 +59,8 @@ public class JSONMessageBuilderPanel extends JPanel {
 				JsonElement value = item.getSelectedValue();
 				
 				if(value != null) {
-					object.addProperty(key, value.getAsString());	
+					object.add(key, value);
+
 				}				
 			}
 			
