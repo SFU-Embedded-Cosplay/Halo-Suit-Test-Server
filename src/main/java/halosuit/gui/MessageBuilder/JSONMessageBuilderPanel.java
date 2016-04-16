@@ -72,7 +72,7 @@ public class JSONMessageBuilderPanel extends JPanel {
 			
 			for(MessageBuilderItem item : messageBuilderItems) {
 				String key = item.getKey();
-				JsonElement value = item.getSelectedValue();
+				JsonElement value = item.getValue();
 				
 				if(value != null) {
 					object.add(key, value);

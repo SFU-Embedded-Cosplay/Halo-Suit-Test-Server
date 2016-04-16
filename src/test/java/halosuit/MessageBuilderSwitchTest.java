@@ -24,7 +24,7 @@ public class MessageBuilderSwitchTest {
 		
 		MessageBuilderSwitch messageBuilderSwitch = new MessageBuilderSwitch(key, options);
 		
-		assertEquals(null, messageBuilderSwitch.getSelectedValue());
+		assertEquals(null, messageBuilderSwitch.getValue());
 	}
 
 }

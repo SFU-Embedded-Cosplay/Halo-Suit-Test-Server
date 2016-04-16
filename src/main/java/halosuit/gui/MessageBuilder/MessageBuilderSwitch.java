@@ -38,7 +38,7 @@ public class MessageBuilderSwitch extends JPanel implements MessageBuilderItem {
 	}
 
 	@Override
-	public JsonElement getSelectedValue() {	
+	public JsonElement getValue() {	
 		
 		ButtonModel selectedRadioButton = optionGroup.getSelection();
 		

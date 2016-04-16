@@ -20,15 +20,15 @@ public class MessageBuilderFieldTest {
 		
 		// test int value
 		field.setFieldValue("-5");
-		assertEquals(-5, field.getSelectedValue().getAsInt());
+		assertEquals(-5, field.getValue().getAsInt());
 		
 		// test float value
 		field.setFieldValue("10.3");
-		assertEquals(10.3, field.getSelectedValue().getAsFloat(), 0.01);
+		assertEquals(10.3, field.getValue().getAsFloat(), 0.01);
 		
 		// test string value
 		field.setFieldValue("hello world 5");
-		assertEquals("hello world 5", field.getSelectedValue().getAsString());
+		assertEquals("hello world 5", field.getValue().getAsString());
 
 		
 	}

@@ -32,7 +32,7 @@ public class MessageBuilderField extends JPanel implements MessageBuilderItem {
 	}
 
 	@Override
-	public JsonElement getSelectedValue() {	
+	public JsonElement getValue() {	
 		
 		String message = textField.getText();
 		textField.setText("");
