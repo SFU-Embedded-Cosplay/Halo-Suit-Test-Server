@@ -29,13 +29,13 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	
 	private JButton sendButton = new JButton("Send");
 	private JTextField serverMessageBox = new JTextField();
-	private JButton listenForConnectionButton = new JButton("Wait for connection");
 	
 	private JButton clearButton = new JButton("Clear");
 	
 	private JTextArea androidAppInputTextArea = new JTextArea();
 	
 	private JPanel sendMessagePanel = new JPanel();
+	private  ServerStatusPanel serverStatus = null;
 	private JSONMessageBuilderPanel messageBuilderPanel =  new JSONMessageBuilderPanel((message) -> {
 		serverMessageBox.setText(message);
 	});
@@ -60,10 +60,11 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		//setBorderLayout()
 		
 		server.addInputListener((inputCharacter)->addInputCharacter(inputCharacter));
 		
+
+		serverStatus = new ServerStatusPanel(server);
 		
 		sendButton.setPreferredSize(new Dimension(SEND_BUTTON_WIDTH, SEND_BUTTON_HEIGHT));
 		serverMessageBox.setPreferredSize(new Dimension(WIDTH  - SEND_BUTTON_WIDTH - SEND_MESSAGE_BOX_PADDING, SEND_BUTTON_HEIGHT));
@@ -77,17 +78,13 @@ public class TestServerFrame extends JFrame implements KeyListener{
 			serverMessageBox.setText("");
 		});
 		
-		listenForConnectionButton.addActionListener((e)-> {
-			new Thread(()->connectToServer()).start();
-		});
-		
 		clearButton.addActionListener((e)->{
 			androidAppInputTextArea.setText(""); // clears text area
 		});
 		
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
-		tabbedPane.addTab("Server Status", listenForConnectionButton);
+		tabbedPane.addTab("Server Status", serverStatus);
 		tabbedPane.addTab("Client Messages", androidAppInputTextArea);
 		tabbedPane.addTab("Message Builder", messageBuilderPanel);
 		
@@ -102,15 +99,6 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	
 	private void addInputCharacter(char inputCharacter) {
 		androidAppInputTextArea.append("" + inputCharacter);
-	}
-
-	private void connectToServer() {
-		try {
-			server.listenForConnection();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();			
-		}
 	}
 	
 	private void sendMessageToPhone(String message) {		
