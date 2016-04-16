@@ -1,4 +1,6 @@
 # Halo-Suit-Test-Server
+[![Build Status](https://travis-ci.org/SFU-Embedded-Cosplay/Halo-Suit-Test-Server.svg?branch=master)](https://travis-ci.org/SFU-Embedded-Cosplay/Halo-Suit-Test-Server)
+
 Halo-Suit-Test-Server is an application designed to simulate the network layer between different Halo-Suit Devices. The Test Server gives developers control of both sending and receiving messages.
 It currently supports the [Android](https://github.com/SFU-Embedded-Cosplay/Halo-Suit-Android) and [BeagleBone](https://github.com/SFU-Embedded-Cosplay/Halo-Suit-BeagleBone) applications.
 
