@@ -9,12 +9,13 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 import java.util.function.Consumer;
 
 import main.java.halosuit.utils.Logger;
 
 
-public class Server {
+public class Server extends Observable {
 	private int port;
 	
 	private ServerSocket serverSocket;
@@ -81,7 +82,7 @@ public class Server {
 	public void listenForConnection() throws IOException {
 		if(isConnected()) {
 			log.println("aborting additional attempt to listen for android device since since server is already connected");
-			isConnecting = false;
+			setIsConnecting(false);
 			return;
 		}
 		
@@ -90,7 +91,7 @@ public class Server {
 			return;
 		}
 		
-		isConnecting = true;
+		setIsConnecting(true);
 		
 		log.println("waiting for user to connect on port: " + port);
 		
@@ -98,7 +99,7 @@ public class Server {
 		
 		log.println("client has connected");
 		
-		isConnecting = false;
+		setIsConnecting(false);
 		
 		output = new PrintWriter(client.getOutputStream());
 		input = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -112,6 +113,10 @@ public class Server {
 	
 	public boolean isConnected() {
 		return client != null && !client.isClosed();
+	}
+	
+	public boolean isConnecting() {
+		return isConnecting;
 	}
 	
 	private void listenForMessage() {
@@ -140,7 +145,7 @@ public class Server {
 			input = null;
 			output = null;
 			
-			isConnecting = false;
+			setIsConnecting(false);
 			
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -150,6 +155,13 @@ public class Server {
 
 	public void setLog(Logger log) {
 		this.log  = log;
+	}
+	
+	private void setIsConnecting(boolean isConnecting) {
+		this.isConnecting = isConnecting;
+		
+		setChanged();
+		notifyObservers();
 	}
 	
 }

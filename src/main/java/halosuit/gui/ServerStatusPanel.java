@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,6 +39,16 @@ public class ServerStatusPanel extends JPanel {
 		add(serverStatus, BorderLayout.NORTH);
 		add(listenForConnectionButton,  BorderLayout.CENTER);
 		
+		
+		server.addObserver((observedServer, args) -> {			
+			if(server.isConnected()) {
+				serverStatus.setText(CONNECTION_MESSAGE_CONNECTED);
+			} else if(server.isConnecting()) {
+				serverStatus.setText(CONNECTION_MESSAGE_WAITING_FOR_CONNECTION);
+			} else {
+				serverStatus.setText(CONNECTION_MESSAGE_NOT_CONNECTED);
+			}
+		});
 		
 	}
 	
