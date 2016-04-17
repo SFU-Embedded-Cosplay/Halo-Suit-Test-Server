@@ -73,21 +73,23 @@ public class MessageBuilderPanel extends JPanel {
 		
 		
 		addButton.addActionListener(e -> {
-			JsonObject object = new JsonObject();			
-			
-			for(MessageBuilderItem item : messageBuilderItems) {
-				String key = item.getKey();
-				JsonElement value = item.getValue();
-				
-				if(value != null) {
-					object.add(key, value);
-
-				}				
-			}
-			
-			
-			addBuildMessageCallback.accept(object.toString());
+			addBuildMessageCallback.accept(getMessage());
 		});
+	}
+	
+	public String getMessage() {
+		JsonObject object = new JsonObject();			
+		
+		for(MessageBuilderItem item : messageBuilderItems) {
+			String key = item.getKey();
+			JsonElement value = item.getValue();
+			
+			if(value != null) {
+				object.add(key, value);
+			}				
+		}
+		
+		return object.toString();
 	}
 	
 	private JsonObject getJsonObjectFromFile(String fileName) {
