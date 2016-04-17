@@ -24,7 +24,7 @@ public class MessageBuilderPanel extends JPanel {
 	private JsonObject json = new JsonObject();
 	private JButton addButton = new JButton("Add");
 	
-	public static final String DEFAULT_JSON_TEMPLATE_FILE_LOCATION = "res//PossibleJson.json";
+	public static final String DEFAULT_JSON_TEMPLATE_FILE_LOCATION = "src//main//resources//PossibleJson.json";
 	
 	private JPanel messageBuilderPanel = new JPanel();
 	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
@@ -95,7 +95,7 @@ public class MessageBuilderPanel extends JPanel {
 		JsonElement jsonElement = null;
 		
 		try {
-			jsonElement = parser.parse(new FileReader("res//PossibleJson.json"));
+			jsonElement = parser.parse(new FileReader(fileName));
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 			e.printStackTrace(); // TODO: handle this properly
 		}
