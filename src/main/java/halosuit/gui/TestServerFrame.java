@@ -15,7 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import main.java.halosuit.gui.MessageBuilder.JSONMessageBuilderPanel;
+import main.java.halosuit.gui.MessageBuilder.MessageBuilderPanel;
 import main.java.halosuit.server.Server;
 
 public class TestServerFrame extends JFrame implements KeyListener{
@@ -36,7 +36,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	
 	private JPanel sendMessagePanel = new JPanel();
 	private  ServerStatusPanel serverStatus = null;
-	private JSONMessageBuilderPanel messageBuilderPanel =  new JSONMessageBuilderPanel((message) -> {
+	private MessageBuilderPanel messageBuilderPanel =  new MessageBuilderPanel((message) -> {
 		serverMessageBox.setText(message);
 	});
 	

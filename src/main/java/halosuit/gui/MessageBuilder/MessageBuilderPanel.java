@@ -19,7 +19,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 
-public class JSONMessageBuilderPanel extends JPanel {
+public class MessageBuilderPanel extends JPanel {
 	
 	private JsonObject json = new JsonObject();
 	private JButton addButton = new JButton("Add");
@@ -30,7 +30,7 @@ public class JSONMessageBuilderPanel extends JPanel {
 	
 	Consumer<String> addBuildMessageCallback = null;
 	
-	public JSONMessageBuilderPanel(Consumer<String> addBuildMessageCallback) {	
+	public MessageBuilderPanel(Consumer<String> addBuildMessageCallback) {	
 		this.addBuildMessageCallback = addBuildMessageCallback;
 		
 		
