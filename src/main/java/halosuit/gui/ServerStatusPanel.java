@@ -1,12 +1,8 @@
 package main.java.halosuit.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
+
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,19 +22,17 @@ public class ServerStatusPanel extends JPanel {
 	private JButton listenForConnectionButton = new JButton("Wait for connection");
 	private JLabel serverStatus = new JLabel(CONNECTION_MESSAGE_NOT_CONNECTED, SwingConstants.CENTER); //TODO: figure out how to nicely add color to this
 	
-	private JPanel panel = new JPanel();
-	
 	public ServerStatusPanel(Server server) {
 		this.server = server;		
 		setLayout(new BorderLayout());
 	
-		listenForConnectionButton.addActionListener((e)-> {
-			new Thread(()->connectToServer()).start();
-		});
-				
 		add(serverStatus, BorderLayout.NORTH);
 		add(listenForConnectionButton,  BorderLayout.CENTER);
 		
+		
+		listenForConnectionButton.addActionListener((e)-> {
+			new Thread(()->connectToServer()).start();
+		});
 		
 		server.addObserver((observedServer, args) -> {			
 			if(server.isConnected()) {
@@ -49,7 +43,6 @@ public class ServerStatusPanel extends JPanel {
 				serverStatus.setText(CONNECTION_MESSAGE_NOT_CONNECTED);
 			}
 		});
-		
 	}
 	
 	private void connectToServer() {
