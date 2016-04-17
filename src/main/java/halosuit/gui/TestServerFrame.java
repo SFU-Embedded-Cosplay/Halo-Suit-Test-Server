@@ -36,9 +36,12 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	
 	private JPanel sendMessagePanel = new JPanel();
 	private  ServerStatusPanel serverStatus = null;
-	private MessageBuilderPanel messageBuilderPanel =  new MessageBuilderPanel((message) -> {
-		serverMessageBox.setText(message);
-	});
+	
+	private MessageBuilderPanel messageBuilderPanel =  new MessageBuilderPanel(
+			MessageBuilderPanel.DEFAULT_JSON_TEMPLATE_FILE_LOCATION, 
+			(message) -> { 
+				serverMessageBox.setText(message); 
+			});
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
  

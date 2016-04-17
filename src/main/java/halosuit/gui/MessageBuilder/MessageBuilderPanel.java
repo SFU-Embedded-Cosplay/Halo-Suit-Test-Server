@@ -24,13 +24,14 @@ public class MessageBuilderPanel extends JPanel {
 	private JsonObject json = new JsonObject();
 	private JButton addButton = new JButton("Add");
 	
+	public static final String DEFAULT_JSON_TEMPLATE_FILE_LOCATION = "res//PossibleJson.json";
 	
 	private JPanel messageBuilderPanel = new JPanel();
 	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
 	
 	Consumer<String> addBuildMessageCallback = null;
 	
-	public MessageBuilderPanel(Consumer<String> addBuildMessageCallback) {	
+	public MessageBuilderPanel(String jsonTemplateFileLocation, Consumer<String> addBuildMessageCallback) {	
 		this.addBuildMessageCallback = addBuildMessageCallback;
 		
 		
@@ -41,7 +42,7 @@ public class MessageBuilderPanel extends JPanel {
 		add(messageBuilderPanel, BorderLayout.CENTER);
 
 		
-		json = getJsonObjectFromFile("res//PossibleJson.json");
+		json = getJsonObjectFromFile(jsonTemplateFileLocation);
 		
 		json.entrySet().forEach( entry -> {
 		
