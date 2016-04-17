@@ -10,7 +10,7 @@ public class MessageBuilderPanelTest {
 
 	@Test
 	public void testGetMessage() {
-		String jsonFilePath = "src\\test\\resource\\testJson1.json";
+		String jsonFilePath = "src//test//resource//testJson1.json";
 		
 		MessageBuilderPanel panel = new MessageBuilderPanel(jsonFilePath, (message) -> {});
 		
