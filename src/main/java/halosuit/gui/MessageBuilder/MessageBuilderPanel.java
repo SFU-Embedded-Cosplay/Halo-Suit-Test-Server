@@ -36,7 +36,7 @@ public class MessageBuilderPanel extends JPanel {
 		
 		
 		setLayout(new BorderLayout());
-		messageBuilderPanel.setLayout(new GridLayout(10, 3, 10, 5));
+		messageBuilderPanel.setLayout(new GridLayout(18, 2, 10, 5));
 		
 		add(addButton, BorderLayout.NORTH);
 		add(messageBuilderPanel, BorderLayout.CENTER);
@@ -61,6 +61,13 @@ public class MessageBuilderPanel extends JPanel {
 				
 				messageBuilderPanel.add(field);
 				messageBuilderItems.add(field);
+			} else if(entry.getValue().isJsonObject()) {
+				entry.getValue().getAsJsonObject().entrySet().forEach( item -> {
+					MessageBuilderField field = new MessageBuilderField(item.getKey());
+					
+					messageBuilderPanel.add(field);
+					messageBuilderItems.add(field);	
+				});
 			}
 		});
 		
