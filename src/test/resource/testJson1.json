@@ -1,0 +1,42 @@
+{
+    "lights":["on","off","auto"],
+    "head lights red":["on","off"],
+    "head lights white":["on","off"],
+    "head fans":["on","off"],
+    "water pump":["auto","off"],
+    "peltier":["auto","off"],
+    "head temperature":2.5,
+    "armpits temperature":2.5,
+    "crotch temperature":2.5,
+    "water temperature":2.5,
+    "flow rate":5,
+    "heart rate": 5,
+    "8 AH battery": 5,
+    "2 AH battery": 5,
+    "hud battery": 2.5,
+    "phone battery": 5,
+    "voltage1" : 2.5, 
+    "voltage2" : 2.5, 
+    "play sound": "string",
+    "configuration": {
+        "android":"MAC Address",
+        "glass":"MAC Address"
+    },
+    "warnings": {
+        "critical high body temperature": "string",
+        "high body temperature": "string",
+        "critical low body temperature": "string",
+        "low body temperature": "string",
+        "critical high head temperature": "string",
+        "high head temperature": "string",
+        "critical low head temperature": "string",
+        "low head temperature": "string",
+        "high water temperature": "string",
+        "low water temperature": "string",
+        "low water flow": "string",
+        "low 8AH battery warning": "string",
+        "low 2AH battery warning": "string",
+        "low hud battery warning": "string",
+        "low phone battery warning": "string"
+    }
+}
