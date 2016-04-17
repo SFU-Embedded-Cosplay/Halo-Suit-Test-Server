@@ -45,9 +45,6 @@ public class MessageBuilderPanel extends JPanel {
 		json = getJsonObjectFromFile(jsonTemplateFileLocation);
 		
 		json.entrySet().forEach( entry -> {
-		
-			System.out.println(entry.getKey());
-			System.out.println(entry.getValue());
 			
 			if(entry.getValue().isJsonArray()) {
 				// extract string array from json array
