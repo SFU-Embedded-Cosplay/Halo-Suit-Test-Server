@@ -34,9 +34,7 @@ public class MessageBuilderField extends JPanel implements MessageBuilderItem {
 	@Override
 	public JsonElement getValue() {	
 		
-		String message = textField.getText();
-		textField.setText("");
-		
+		String message = textField.getText();		
 		
 		// check if value is int and return it.
 		try{
