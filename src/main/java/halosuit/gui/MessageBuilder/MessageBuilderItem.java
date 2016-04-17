@@ -7,4 +7,5 @@ public interface MessageBuilderItem {
 	public String getKey();
 	public JsonElement getValue();
 	
+	public void setValue(String value);
 }

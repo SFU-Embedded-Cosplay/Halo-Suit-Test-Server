@@ -1,7 +1,9 @@
 package main.java.halosuit.gui.MessageBuilder;
 
 import java.awt.GridLayout;
+import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.JLabel;
@@ -47,6 +49,21 @@ public class MessageBuilderSwitch extends JPanel implements MessageBuilderItem {
 			return new Gson().toJsonTree(selectedButtonLabel);	
 		} else {
 			return null;
+		}
+	}
+	
+	@Override
+	public void setValue(String value) {
+		
+		Enumeration<AbstractButton> radioButtons = optionGroup.getElements();
+		
+		while(radioButtons.hasMoreElements()) {
+			JRadioButton radioButton = (JRadioButton) radioButtons.nextElement();
+			
+			if(value.equals(radioButton.getText())) {
+				radioButton.setSelected(true);
+				return;
+			}
 		}
 	}
 }

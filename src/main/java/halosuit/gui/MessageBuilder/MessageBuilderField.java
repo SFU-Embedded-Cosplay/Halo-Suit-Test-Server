@@ -58,4 +58,9 @@ public class MessageBuilderField extends JPanel implements MessageBuilderItem {
 		}
 	}
 
+	@Override
+	public void setValue(String value) {
+		textField.setText(value);
+	}
+
 }
