@@ -1,25 +1,40 @@
 package main.java.halosuit.gui.MessageBuilder;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 public class MessageBuilderField extends JPanel implements MessageBuilderItem {
+	
+	private static final int KEY_LEFT_PADDING = 5;
+	private static final int ELEMENT_PADDING = 5;
+	
 	private JLabel key = null;
 	private JTextField textField = new JTextField();
 	
 	public MessageBuilderField(String key) {
 		this.key = new JLabel(key);
 		
-		setLayout(new BorderLayout());
+		SpringLayout layout = new SpringLayout();
 		
 		add(this.key, BorderLayout.WEST);
+		add(textField, BorderLayout.CENTER);
 		
-		add(textField, BorderLayout.CENTER);			
+		// add padding to left of key
+		layout.putConstraint(SpringLayout.WEST, this.key, KEY_LEFT_PADDING, SpringLayout.WEST, this);
+		// add padding between key and textfield
+		layout.putConstraint(SpringLayout.WEST, textField, ELEMENT_PADDING, SpringLayout.EAST, this.key);
+		// stretch textField to end of panel
+		layout.putConstraint(SpringLayout.EAST, textField, ELEMENT_PADDING, SpringLayout.EAST, this);
+		
+				
+		setLayout(layout);
 	}
 	
 	public void setFieldValue(String text) {
