@@ -6,9 +6,12 @@ import main.java.halosuit.gui.TestServerFrame;
 import main.java.halosuit.server.Server;
 
 public class Main {
+	
+	public static final int DEFAULT_PORT = 8080;
+	
 	public static void main(String args[]) {
 		
-		int port = 8080;
+		int port = DEFAULT_PORT;
 		Server server;
 		TestServerFrame gui;
 		
