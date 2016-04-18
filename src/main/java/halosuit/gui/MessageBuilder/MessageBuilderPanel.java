@@ -92,6 +92,18 @@ public class MessageBuilderPanel extends JPanel {
 		return object.toString();
 	}
 	
+	public void setValue(String key, String value) {
+		
+		for(MessageBuilderItem item : messageBuilderItems) {
+			if(key.equals(item.getKey())) {
+				
+				item.setValue(value);
+				return;
+				
+			}
+		}
+	}
+	
 	private JsonObject getJsonObjectFromFile(String fileName) {
 		JsonParser parser = new JsonParser();
 		JsonElement jsonElement = null;
