@@ -17,9 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 public class MessageBuilderSwitch extends JPanel implements MessageBuilderItem {
-			
-	public static final int KEY_LEFT_PADDING = 5;
-	public static final int ELEMENT_PADDING = 5;
 	
 	private JLabel key = null;
 	private ButtonGroup optionGroup = new ButtonGroup();

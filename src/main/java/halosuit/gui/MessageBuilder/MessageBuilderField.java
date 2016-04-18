@@ -12,9 +12,6 @@ import com.google.gson.JsonElement;
 
 public class MessageBuilderField extends JPanel implements MessageBuilderItem {
 	
-	private static final int KEY_LEFT_PADDING = 5;
-	private static final int ELEMENT_PADDING = 5;
-	
 	private JLabel key = null;
 	private JTextField textField = new JTextField();
 	
