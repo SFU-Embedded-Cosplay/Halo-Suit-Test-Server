@@ -31,6 +31,7 @@ public class MessageBuilderPanel extends JPanel {
 	
 	private JPanel messageBuilderPanel = new JPanel();
 	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
+	private List<MessageBuilderItem> messageBuilderItemGroups = new ArrayList<MessageBuilderItem>();
 	
 	Consumer<String> addBuildMessageCallback = null;
 	
@@ -70,10 +71,10 @@ public class MessageBuilderPanel extends JPanel {
 					fieldGroup.addItem(field);
 					
 					
-					messageBuilderItems.add(field);
+//					messageBuilderItems.add(field);
 				});
 				
-//				messageBuilderItems.add(fieldGroup);
+				messageBuilderItemGroups.add(fieldGroup);
 			}
 		});
 
@@ -112,6 +113,42 @@ public class MessageBuilderPanel extends JPanel {
 		// ensures last virticalGroup is added to layout properly
 		if(messageBuilderItems.size() % 2 == 1) {
 			verticalGroup.addGroup(verticalLayerGrouping);
+		}
+		
+		for(int i = 0; i < messageBuilderItemGroups.size(); i++) {
+			MessageBuilderFieldGroup itemGroup = (MessageBuilderFieldGroup) messageBuilderItemGroups.get(i);
+			
+			verticalLayerGrouping = layout.createParallelGroup();
+			verticalLayerGrouping.addComponent(itemGroup.getKeyLabel());
+			verticalGroup.addGroup(verticalLayerGrouping);
+			
+			
+			leftHorizontalGroup.addComponent(itemGroup.getKeyLabel());
+			
+			for(int j = 0; j < itemGroup.getNumberOfItems(); j++) {
+				if(j % 2 == 0) { // left item  (value is even)
+					
+					Component item = (Component) itemGroup.getItem(j);
+					
+					verticalLayerGrouping = layout.createParallelGroup();
+					verticalLayerGrouping.addComponent(item);
+					
+					
+					leftHorizontalGroup.addComponent(item);
+	
+				} else { // right item (value is odd)
+					Component item = (Component) itemGroup.getItem(j);
+					
+					verticalLayerGrouping.addComponent(item);
+					verticalGroup.addGroup(verticalLayerGrouping);
+					
+					rightHorizontalGroup.addComponent(item);
+				}
+			}
+			
+			if(itemGroup.getNumberOfItems() % 2 == 1) {
+				verticalGroup.addGroup(verticalLayerGrouping);
+			}
 		}
 				
 		horizontalGroup.addGroup(leftHorizontalGroup);
