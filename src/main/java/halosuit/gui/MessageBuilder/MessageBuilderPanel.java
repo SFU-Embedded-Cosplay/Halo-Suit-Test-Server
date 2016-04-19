@@ -63,11 +63,17 @@ public class MessageBuilderPanel extends JPanel {
 				
 				messageBuilderItems.add(field);
 			} else if(entry.getValue().isJsonObject()) {	
+				MessageBuilderFieldGroup fieldGroup = new MessageBuilderFieldGroup(entry.getKey());
+				
 				entry.getValue().getAsJsonObject().entrySet().forEach( item -> {
 					MessageBuilderField field = new MessageBuilderField(item.getKey());
+					fieldGroup.addItem(field);
+					
 					
 					messageBuilderItems.add(field);
 				});
+				
+//				messageBuilderItems.add(fieldGroup);
 			}
 		});
 
@@ -103,6 +109,10 @@ public class MessageBuilderPanel extends JPanel {
 			}
 		}
 		
+		// ensures last virticalGroup is added to layout properly
+		if(messageBuilderItems.size() % 2 == 1) {
+			verticalGroup.addGroup(verticalLayerGrouping);
+		}
 				
 		horizontalGroup.addGroup(leftHorizontalGroup);
 		horizontalGroup.addGroup(rightHorizontalGroup);
