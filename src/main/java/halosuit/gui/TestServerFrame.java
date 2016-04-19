@@ -22,8 +22,8 @@ public class TestServerFrame extends JFrame implements KeyListener{
 
 	private Server server;
 	
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1024;
+	public static final int HEIGHT = 768;
 	
 	public static final String TITLE = "Test GUI";
 	
@@ -62,7 +62,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		setSize(WIDTH, HEIGHT);
 		setVisible(true);
 		setLocationRelativeTo(null);
-		setResizable(false);
+		setResizable(true);
 		
 		server.addInputListener((inputCharacter)->addInputCharacter(inputCharacter));
 		

@@ -1,13 +1,16 @@
 package main.java.halosuit.gui.MessageBuilder;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Component;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -28,19 +31,22 @@ public class MessageBuilderPanel extends JPanel {
 	
 	private JPanel messageBuilderPanel = new JPanel();
 	private List<MessageBuilderItem> messageBuilderItems = new ArrayList<MessageBuilderItem>();
+	private List<MessageBuilderItem> messageBuilderItemGroups = new ArrayList<MessageBuilderItem>();
 	
 	Consumer<String> addBuildMessageCallback = null;
 	
 	public MessageBuilderPanel(String jsonTemplateFileLocation, Consumer<String> addBuildMessageCallback) {	
 		this.addBuildMessageCallback = addBuildMessageCallback;
 		
-		
+			
 		setLayout(new BorderLayout());
-		messageBuilderPanel.setLayout(new GridLayout(18, 2, 10, 5));
+	
+		GroupLayout layout = new GroupLayout(messageBuilderPanel);
+		messageBuilderPanel.setLayout(layout);
+		
 		
 		add(addButton, BorderLayout.NORTH);
 		add(messageBuilderPanel, BorderLayout.CENTER);
-
 		
 		json = getJsonObjectFromFile(jsonTemplateFileLocation);
 		
@@ -52,24 +58,104 @@ public class MessageBuilderPanel extends JPanel {
 				
 				MessageBuilderSwitch item = new MessageBuilderSwitch(entry.getKey(), options);
 				
-				messageBuilderPanel.add(item);
 				messageBuilderItems.add(item);
 			} else if(entry.getValue().isJsonPrimitive()) {
 				MessageBuilderField field = new MessageBuilderField(entry.getKey());
 				
-				
-				
-				messageBuilderPanel.add(field);
 				messageBuilderItems.add(field);
-			} else if(entry.getValue().isJsonObject()) {
+			} else if(entry.getValue().isJsonObject()) {	
+				MessageBuilderFieldGroup fieldGroup = new MessageBuilderFieldGroup(entry.getKey());
+				
 				entry.getValue().getAsJsonObject().entrySet().forEach( item -> {
 					MessageBuilderField field = new MessageBuilderField(item.getKey());
+					fieldGroup.addItem(field);
 					
-					messageBuilderPanel.add(field);
-					messageBuilderItems.add(field);	
+					
+//					messageBuilderItems.add(field);
 				});
+				
+				messageBuilderItemGroups.add(fieldGroup);
 			}
 		});
+
+		layout.setAutoCreateGaps(true);
+		layout.setAutoCreateContainerGaps(true);
+		
+		SequentialGroup horizontalGroup = layout.createSequentialGroup();
+		SequentialGroup verticalGroup = layout.createSequentialGroup();
+				
+		ParallelGroup leftHorizontalGroup = layout.createParallelGroup();
+		ParallelGroup rightHorizontalGroup = layout.createParallelGroup();
+		ParallelGroup verticalLayerGrouping = null;
+
+		
+		for(int i = 0; i < messageBuilderItems.size(); i++) {
+			if(i % 2 == 0) { // left item  (value is even)
+				
+				Component item = (Component) messageBuilderItems.get(i);
+				
+				verticalLayerGrouping = layout.createParallelGroup();
+				verticalLayerGrouping.addComponent(item);
+				
+				
+				leftHorizontalGroup.addComponent(item);
+
+			} else { // right item (value is odd)
+				Component item = (Component) messageBuilderItems.get(i);
+				
+				verticalLayerGrouping.addComponent(item);
+				verticalGroup.addGroup(verticalLayerGrouping);
+				
+				rightHorizontalGroup.addComponent(item);
+			}
+		}
+		
+		// ensures last virticalGroup is added to layout properly
+		if(messageBuilderItems.size() % 2 == 1) {
+			verticalGroup.addGroup(verticalLayerGrouping);
+		}
+		
+		for(int i = 0; i < messageBuilderItemGroups.size(); i++) {
+			MessageBuilderFieldGroup itemGroup = (MessageBuilderFieldGroup) messageBuilderItemGroups.get(i);
+			
+			verticalLayerGrouping = layout.createParallelGroup();
+			verticalLayerGrouping.addComponent(itemGroup.getKeyLabel());
+			verticalGroup.addGroup(verticalLayerGrouping);
+			
+			
+			leftHorizontalGroup.addComponent(itemGroup.getKeyLabel());
+			
+			for(int j = 0; j < itemGroup.getNumberOfItems(); j++) {
+				if(j % 2 == 0) { // left item  (value is even)
+					
+					Component item = (Component) itemGroup.getItem(j);
+					
+					verticalLayerGrouping = layout.createParallelGroup();
+					verticalLayerGrouping.addComponent(item);
+					
+					
+					leftHorizontalGroup.addComponent(item);
+	
+				} else { // right item (value is odd)
+					Component item = (Component) itemGroup.getItem(j);
+					
+					verticalLayerGrouping.addComponent(item);
+					verticalGroup.addGroup(verticalLayerGrouping);
+					
+					rightHorizontalGroup.addComponent(item);
+				}
+			}
+			
+			if(itemGroup.getNumberOfItems() % 2 == 1) {
+				verticalGroup.addGroup(verticalLayerGrouping);
+			}
+		}
+				
+		horizontalGroup.addGroup(leftHorizontalGroup);
+		horizontalGroup.addGroup(rightHorizontalGroup);
+		
+		layout.setHorizontalGroup(horizontalGroup);
+		layout.setVerticalGroup(verticalGroup);
 		
 		
 		addButton.addActionListener(e -> {
@@ -87,6 +173,15 @@ public class MessageBuilderPanel extends JPanel {
 			if(value != null) {
 				object.add(key, value);
 			}				
+		}
+		
+		for(MessageBuilderItem item : messageBuilderItemGroups) {
+			String key = item.getKey();
+			JsonElement value = item.getValue();
+			
+			if(value != null) {
+				object.add(key, value);
+			}	
 		}
 		
 		return object.toString();
