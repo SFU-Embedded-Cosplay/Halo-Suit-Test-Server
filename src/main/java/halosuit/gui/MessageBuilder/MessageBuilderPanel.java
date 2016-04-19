@@ -175,6 +175,15 @@ public class MessageBuilderPanel extends JPanel {
 			}				
 		}
 		
+		for(MessageBuilderItem item : messageBuilderItemGroups) {
+			String key = item.getKey();
+			JsonElement value = item.getValue();
+			
+			if(value != null) {
+				object.add(key, value);
+			}	
+		}
+		
 		return object.toString();
 	}
 	

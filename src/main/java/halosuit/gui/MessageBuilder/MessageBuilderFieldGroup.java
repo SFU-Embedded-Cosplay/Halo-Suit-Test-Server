@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class MessageBuilderFieldGroup implements MessageBuilderItem {
 
@@ -28,14 +29,30 @@ public class MessageBuilderFieldGroup implements MessageBuilderItem {
 	
 	@Override
 	public String getKey() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return key.getText();
 	}
 
 	@Override
 	public JsonElement getValue() {
-		// TODO Auto-generated method stub
-		return null;
+		JsonObject object = new JsonObject();
+		
+		for(MessageBuilderField field : fields) {
+			String key = field.getKey();
+			JsonElement value = field.getValue();
+			
+			if(value != null) {
+				object.add(key, value);				
+			}
+		}
+		
+		// no fields are filled out so return null 
+		// instead of empty object Ex. "{}"
+		if(object.entrySet().size() == 0) {
+			return null;
+		}
+		
+		return object;
 	}
 
 	@Override
