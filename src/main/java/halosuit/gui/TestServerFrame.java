@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -33,6 +34,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	private JButton clearButton = new JButton("Clear");
 	
 	private JTextArea androidAppInputTextArea = new JTextArea();
+	private ScrollableTextArea clientMessageArea = new ScrollableTextArea(androidAppInputTextArea);
 	
 	private JPanel sendMessagePanel = new JPanel();
 	private  ServerStatusPanel serverStatus = null;
@@ -66,6 +68,11 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		
 		server.addInputListener((inputCharacter)->addInputCharacter(inputCharacter));
 		
+		
+		
+		
+
+		
 
 		serverStatus = new ServerStatusPanel(server);
 		
@@ -88,7 +95,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
 		tabbedPane.addTab("Server Status", serverStatus);
-		tabbedPane.addTab("Client Messages", androidAppInputTextArea);
+		tabbedPane.addTab("Client Messages", clientMessageArea);
 		tabbedPane.addTab("Message Builder", messageBuilderPanel);
 		
 		add(tabbedPane, BorderLayout.CENTER);
@@ -127,7 +134,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		
 		this.log = log;
 		
-		tabbedPane.addTab("Log", log);
+		tabbedPane.addTab("Log", new ScrollableTextArea(log));
 	}
 
 	
