@@ -34,7 +34,6 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	private JButton clearButton = new JButton("Clear");
 	
 	private JTextArea androidAppInputTextArea = new JTextArea();
-	private ScrollableTextArea clientMessageArea = new ScrollableTextArea(androidAppInputTextArea);
 	
 	private JPanel sendMessagePanel = new JPanel();
 	private  ServerStatusPanel serverStatus = null;
@@ -95,7 +94,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
 		tabbedPane.addTab("Server Status", serverStatus);
-		tabbedPane.addTab("Client Messages", clientMessageArea);
+		tabbedPane.addTab("Client Messages", new ScrollableTextArea(androidAppInputTextArea));
 		tabbedPane.addTab("Message Builder", messageBuilderPanel);
 		
 		add(tabbedPane, BorderLayout.CENTER);
