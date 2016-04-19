@@ -1,5 +1,6 @@
 package main.java.halosuit.gui.MessageBuilder;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class MessageBuilderFieldGroup implements MessageBuilderItem {
 	
 	public  MessageBuilderFieldGroup(String key) {
 		this.key = new JLabel(key);
+		this.key.setForeground(Color.RED);
 	}
 	
 	public void addItem(MessageBuilderField field) {
