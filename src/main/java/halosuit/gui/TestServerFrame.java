@@ -134,7 +134,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		
 		this.log = log;
 		
-		tabbedPane.addTab("Log", log);
+		tabbedPane.addTab("Log", new ScrollableTextArea(log));
 	}
 
 	
