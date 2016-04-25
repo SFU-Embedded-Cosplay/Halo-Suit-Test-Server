@@ -26,7 +26,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;
 	
-	public static final String TITLE = "Test GUI";
+	public static final String TITLE = "Halo-Suit Testing Server";
 	
 	private JButton sendButton = new JButton("Send");
 	private JTextField serverMessageBox = new JTextField();
