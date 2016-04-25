@@ -29,19 +29,19 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	public static final String TITLE = "Halo-Suit Testing Server";
 	
 	private JButton sendButton = new JButton("Send");
-	private JTextField serverMessageBox = new JTextField();
+	private JTextField sendMessageField = new JTextField();
+	private JPanel sendMessagePanel = new JPanel();
 	
 	private JButton clearButton = new JButton("Clear");
 	
-	private JTextArea androidAppInputTextArea = new JTextArea();
+	private JTextArea receiveMessageBox = new JTextArea();
 	
-	private JPanel sendMessagePanel = new JPanel();
 	private  ServerStatusPanel serverStatus = null;
 	
 	private MessageBuilderPanel messageBuilderPanel =  new MessageBuilderPanel(
 			MessageBuilderPanel.DEFAULT_JSON_TEMPLATE_FILE_LOCATION, 
 			(message) -> { 
-				serverMessageBox.setText(message); 
+				sendMessageField.setText(message); 
 			});
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
@@ -76,25 +76,25 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		serverStatus = new ServerStatusPanel(server);
 		
 		sendButton.setPreferredSize(new Dimension(SEND_BUTTON_WIDTH, SEND_BUTTON_HEIGHT));
-		serverMessageBox.setPreferredSize(new Dimension(WIDTH  - SEND_BUTTON_WIDTH - SEND_MESSAGE_BOX_PADDING, SEND_BUTTON_HEIGHT));
+		sendMessageField.setPreferredSize(new Dimension(WIDTH  - SEND_BUTTON_WIDTH - SEND_MESSAGE_BOX_PADDING, SEND_BUTTON_HEIGHT));
 		
-		sendMessagePanel.add(serverMessageBox);
+		sendMessagePanel.add(sendMessageField);
 		sendMessagePanel.add(sendButton);
 		
 		
 		sendButton.addActionListener((e) -> {
-			sendMessageToPhone(serverMessageBox.getText());
-			serverMessageBox.setText("");
+			sendMessageToPhone(sendMessageField.getText());
+			sendMessageField.setText("");
 		});
 		
 		clearButton.addActionListener((e)->{
-			androidAppInputTextArea.setText(""); // clears text area
+			receiveMessageBox.setText(""); // clears text area
 		});
 		
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
 		tabbedPane.addTab("Server Status", serverStatus);
-		tabbedPane.addTab("Client Messages", new ScrollableTextArea(androidAppInputTextArea));
+		tabbedPane.addTab("Client Messages", new ScrollableTextArea(receiveMessageBox));
 		tabbedPane.addTab("Message Builder", messageBuilderPanel);
 		
 		add(tabbedPane, BorderLayout.CENTER);
@@ -102,12 +102,12 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		add(clearButton, BorderLayout.SOUTH);
 		
 				
-		serverMessageBox.addKeyListener(this);
+		sendMessageField.addKeyListener(this);
 		
 	}
 	
 	private void addInputCharacter(char inputCharacter) {
-		androidAppInputTextArea.append("" + inputCharacter);
+		receiveMessageBox.append("" + inputCharacter);
 	}
 	
 	private void sendMessageToPhone(String message) {		
