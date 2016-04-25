@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -66,13 +65,8 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		setResizable(true);
 		
 		server.addInputListener((inputCharacter)->addInputCharacter(inputCharacter));
-		
-		
-		
-		
 
 		
-
 		serverStatus = new ServerStatusPanel(server);
 		
 		sendButton.setPreferredSize(new Dimension(SEND_BUTTON_WIDTH, SEND_BUTTON_HEIGHT));
@@ -97,10 +91,16 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		tabbedPane.addTab("Client Messages", new ScrollableTextArea(receiveMessageBox));
 		tabbedPane.addTab("Message Builder", messageBuilderPanel);
 		
-		add(tabbedPane, BorderLayout.CENTER);
-				
-		add(clearButton, BorderLayout.SOUTH);
+		tabbedPane.addChangeListener(changeEvent -> {
+			
+			if(tabbedPane.getSelectedIndex() == 1) {
+				add(clearButton, BorderLayout.SOUTH);
+			} else {
+				remove(clearButton);
+			}
+		});
 		
+		add(tabbedPane, BorderLayout.CENTER);		
 				
 		sendMessageField.addKeyListener(this);
 		
