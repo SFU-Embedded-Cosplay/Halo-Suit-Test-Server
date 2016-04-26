@@ -3,17 +3,22 @@ package main.java.halosuit.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Event;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.plaf.metal.MetalCheckBoxIcon;
 
 import main.java.halosuit.gui.MessageBuilder.MessageBuilderPanel;
 import main.java.halosuit.server.Server;
@@ -26,6 +31,11 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	public static final int HEIGHT = 768;
 	
 	public static final String TITLE = "Halo-Suit Testing Server";
+	
+	public static final String LOG_TAB_TITLE = "Log";
+	public static final String SERVER_STATUS_TAB_TITLE = "Server Status";
+	public static final String CLIENT_MESSAGE_TAB_TITLE = "Client Messages";
+
 	
 	private JButton sendButton = new JButton("Send");
 	private JTextField sendMessageField = new JTextField();
@@ -93,10 +103,15 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
 		ScrollableTextArea scrollableReceiveTextBox = new ScrollableTextArea(receiveMessageBox);
-		
-		tabbedPane.addTab("Server Status", serverStatus);
-		tabbedPane.addTab("Client Messages", scrollableReceiveTextBox);
+				
+		tabbedPane.addTab(SERVER_STATUS_TAB_TITLE, serverStatus);
+		tabbedPane.addTab(CLIENT_MESSAGE_TAB_TITLE, scrollableReceiveTextBox);
 		tabbedPane.addTab("Message Builder", messageBuilderPanel);
+		
+		addExpandableTab(SERVER_STATUS_TAB_TITLE);
+		addExpandableTab("Client Messages");
+		addExpandableTab("Message Builder");
+
 		
 		tabbedPane.addChangeListener(changeEvent -> {
 			
@@ -111,6 +126,13 @@ public class TestServerFrame extends JFrame implements KeyListener{
 				
 		sendMessageField.addKeyListener(this);
 		
+	}
+	
+	private void addExpandableTab(String title) {
+		int indexOfTitle = tabbedPane.indexOfTab(title);
+		ExpandableTab tab = new ExpandableTab(title, tabbedPane);
+		
+		tabbedPane.setTabComponentAt(indexOfTitle, tab);
 	}
 	
 	private void addInputCharacter(char inputCharacter) {
@@ -141,7 +163,8 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		
 		ScrollableTextArea logTextArea = new ScrollableTextArea(log);
 		
-		tabbedPane.addTab("Log", logTextArea);
+		tabbedPane.addTab(LOG_TAB_TITLE, logTextArea);
+		addExpandableTab(LOG_TAB_TITLE);
 		
 		tabbedPane.addChangeListener(changeEvent -> {
 			
