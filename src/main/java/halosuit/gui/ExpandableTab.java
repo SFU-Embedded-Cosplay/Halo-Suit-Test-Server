@@ -38,8 +38,15 @@ public class ExpandableTab extends JPanel {
 		expandButton.setBackground(Color.WHITE);
 		
 		expandButton.addActionListener((e) -> {
-			
+			new TabFrame(title, tabbedPane);
 		});
+	}
+	
+	public static void addExpandableTab(String title, JTabbedPane tabbedPane) {
+		int indexOfTitle = tabbedPane.indexOfTab(title);
+		ExpandableTab tab = new ExpandableTab(title, tabbedPane);
+		
+		tabbedPane.setTabComponentAt(indexOfTitle, tab);
 	}
 
 }

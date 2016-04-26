@@ -35,6 +35,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	public static final String LOG_TAB_TITLE = "Log";
 	public static final String SERVER_STATUS_TAB_TITLE = "Server Status";
 	public static final String CLIENT_MESSAGE_TAB_TITLE = "Client Messages";
+	public static final String MESSAGE_BUILDER_TAB_TITLE = "Message Builder";
 
 	
 	private JButton sendButton = new JButton("Send");
@@ -106,11 +107,11 @@ public class TestServerFrame extends JFrame implements KeyListener{
 				
 		tabbedPane.addTab(SERVER_STATUS_TAB_TITLE, serverStatus);
 		tabbedPane.addTab(CLIENT_MESSAGE_TAB_TITLE, scrollableReceiveTextBox);
-		tabbedPane.addTab("Message Builder", messageBuilderPanel);
+		tabbedPane.addTab(MESSAGE_BUILDER_TAB_TITLE, messageBuilderPanel);
 		
 		addExpandableTab(SERVER_STATUS_TAB_TITLE);
-		addExpandableTab("Client Messages");
-		addExpandableTab("Message Builder");
+		addExpandableTab(CLIENT_MESSAGE_TAB_TITLE);
+		addExpandableTab(MESSAGE_BUILDER_TAB_TITLE);
 
 		
 		tabbedPane.addChangeListener(changeEvent -> {
@@ -129,10 +130,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	}
 	
 	private void addExpandableTab(String title) {
-		int indexOfTitle = tabbedPane.indexOfTab(title);
-		ExpandableTab tab = new ExpandableTab(title, tabbedPane);
-		
-		tabbedPane.setTabComponentAt(indexOfTitle, tab);
+		ExpandableTab.addExpandableTab(title, tabbedPane);
 	}
 	
 	private void addInputCharacter(char inputCharacter) {
