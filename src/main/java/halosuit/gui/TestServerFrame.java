@@ -32,6 +32,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	private JPanel sendMessagePanel = new JPanel();
 	
 	private JButton clearButton = new JButton("Clear");
+	private JButton clearLogButton = new JButton("Clear");
 	
 	private JTextArea receiveMessageBox = new JTextArea();
 	
@@ -85,6 +86,10 @@ public class TestServerFrame extends JFrame implements KeyListener{
 			receiveMessageBox.setText(""); // clears text area
 		});
 		
+		clearLogButton.addActionListener((e)->{
+			log.setText(""); // clears text area
+		});
+		
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
 		tabbedPane.addTab("Server Status", serverStatus);
@@ -129,11 +134,21 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	
 	public void addLogDisplay(LogDisplay log) {
 		// remove old log. does nothing if old log was not added / null.
-		tabbedPane.remove(this.log); 
-		
+		tabbedPane.remove(this.log);
 		this.log = log;
 		
-		tabbedPane.addTab("Log", new ScrollableTextArea(log));
+		ScrollableTextArea logTextArea = new ScrollableTextArea(log);
+		
+		tabbedPane.addTab("Log", logTextArea);
+		
+		tabbedPane.addChangeListener(changeEvent -> {
+			
+			if(tabbedPane.getSelectedIndex() == tabbedPane.indexOfComponent(logTextArea)) {
+				add(clearLogButton, BorderLayout.SOUTH);
+			} else {
+				remove(clearLogButton);
+			}
+		});
 	}
 
 	
