@@ -92,13 +92,15 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
+		ScrollableTextArea scrollableReceiveTextBox = new ScrollableTextArea(receiveMessageBox);
+		
 		tabbedPane.addTab("Server Status", serverStatus);
-		tabbedPane.addTab("Client Messages", new ScrollableTextArea(receiveMessageBox));
+		tabbedPane.addTab("Client Messages", scrollableReceiveTextBox);
 		tabbedPane.addTab("Message Builder", messageBuilderPanel);
 		
 		tabbedPane.addChangeListener(changeEvent -> {
 			
-			if(tabbedPane.getSelectedIndex() == 1) {
+			if(tabbedPane.getSelectedIndex() == tabbedPane.indexOfComponent(scrollableReceiveTextBox)) {
 				add(clearButton, BorderLayout.SOUTH);
 			} else {
 				remove(clearButton);
