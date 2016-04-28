@@ -3,17 +3,22 @@ package main.java.halosuit.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Event;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.plaf.metal.MetalCheckBoxIcon;
 
 import main.java.halosuit.gui.MessageBuilder.MessageBuilderPanel;
 import main.java.halosuit.server.Server;
@@ -27,14 +32,22 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	
 	public static final String TITLE = "Halo-Suit Testing Server";
 	
+	public static final String LOG_TAB_TITLE = "Log";
+	public static final String SERVER_STATUS_TAB_TITLE = "Server Status";
+	public static final String CLIENT_MESSAGE_TAB_TITLE = "Client Messages";
+	public static final String MESSAGE_BUILDER_TAB_TITLE = "Message Builder";
+
+	private JPanel sendMessagePanel = new JPanel();	
 	private JButton sendButton = new JButton("Send");
 	private JTextField sendMessageField = new JTextField();
-	private JPanel sendMessagePanel = new JPanel();
-	
-	private JButton clearButton = new JButton("Clear");
-	private JButton clearLogButton = new JButton("Clear");
-	
+		
+	private JPanel receiveMessagePanel = new JPanel(new BorderLayout());
 	private JTextArea receiveMessageBox = new JTextArea();
+	private JButton clearButton = new JButton("Clear");
+	
+	private JPanel logPanel = new JPanel(new BorderLayout());
+	private JButton clearLogButton = new JButton("Clear");
+
 	
 	private  ServerStatusPanel serverStatus = null;
 	
@@ -94,23 +107,27 @@ public class TestServerFrame extends JFrame implements KeyListener{
 				
 		ScrollableTextArea scrollableReceiveTextBox = new ScrollableTextArea(receiveMessageBox);
 		
-		tabbedPane.addTab("Server Status", serverStatus);
-		tabbedPane.addTab("Client Messages", scrollableReceiveTextBox);
-		tabbedPane.addTab("Message Builder", messageBuilderPanel);
+		receiveMessagePanel.add(scrollableReceiveTextBox, BorderLayout.CENTER);
+		receiveMessagePanel.add(clearButton, BorderLayout.SOUTH);
+				
+		tabbedPane.addTab(SERVER_STATUS_TAB_TITLE, serverStatus);
+		tabbedPane.addTab(CLIENT_MESSAGE_TAB_TITLE, receiveMessagePanel);
+		tabbedPane.addTab(MESSAGE_BUILDER_TAB_TITLE, messageBuilderPanel);
 		
-		tabbedPane.addChangeListener(changeEvent -> {
-			
-			if(tabbedPane.getSelectedIndex() == tabbedPane.indexOfComponent(scrollableReceiveTextBox)) {
-				add(clearButton, BorderLayout.SOUTH);
-			} else {
-				remove(clearButton);
-			}
-		});
+		addExpandableTab(SERVER_STATUS_TAB_TITLE);
+		addExpandableTab(CLIENT_MESSAGE_TAB_TITLE);
+		addExpandableTab(MESSAGE_BUILDER_TAB_TITLE);
+
+		
 		
 		add(tabbedPane, BorderLayout.CENTER);		
 				
 		sendMessageField.addKeyListener(this);
 		
+	}
+	
+	private void addExpandableTab(String title) {
+		ExpandableTab.addExpandableTab(title, tabbedPane);
 	}
 	
 	private void addInputCharacter(char inputCharacter) {
@@ -141,16 +158,12 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		
 		ScrollableTextArea logTextArea = new ScrollableTextArea(log);
 		
-		tabbedPane.addTab("Log", logTextArea);
+		logPanel.add(logTextArea, BorderLayout.CENTER);
+		logPanel.add(clearLogButton, BorderLayout.SOUTH);
 		
-		tabbedPane.addChangeListener(changeEvent -> {
-			
-			if(tabbedPane.getSelectedIndex() == tabbedPane.indexOfComponent(logTextArea)) {
-				add(clearLogButton, BorderLayout.SOUTH);
-			} else {
-				remove(clearLogButton);
-			}
-		});
+		tabbedPane.addTab(LOG_TAB_TITLE, logPanel);
+		addExpandableTab(LOG_TAB_TITLE);
+		
 	}
 
 	
