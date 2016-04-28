@@ -37,15 +37,17 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	public static final String CLIENT_MESSAGE_TAB_TITLE = "Client Messages";
 	public static final String MESSAGE_BUILDER_TAB_TITLE = "Message Builder";
 
-	
+	private JPanel sendMessagePanel = new JPanel();	
 	private JButton sendButton = new JButton("Send");
 	private JTextField sendMessageField = new JTextField();
-	private JPanel sendMessagePanel = new JPanel();
-	
-	private JButton clearButton = new JButton("Clear");
-	private JButton clearLogButton = new JButton("Clear");
-	
+		
+	private JPanel receiveMessagePanel = new JPanel(new BorderLayout());
 	private JTextArea receiveMessageBox = new JTextArea();
+	private JButton clearButton = new JButton("Clear");
+	
+	private JPanel logPanel = new JPanel(new BorderLayout());
+	private JButton clearLogButton = new JButton("Clear");
+
 	
 	private  ServerStatusPanel serverStatus = null;
 	
@@ -104,9 +106,12 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		add(sendMessagePanel, BorderLayout.NORTH);
 				
 		ScrollableTextArea scrollableReceiveTextBox = new ScrollableTextArea(receiveMessageBox);
+		
+		receiveMessagePanel.add(scrollableReceiveTextBox, BorderLayout.CENTER);
+		receiveMessagePanel.add(clearButton, BorderLayout.SOUTH);
 				
 		tabbedPane.addTab(SERVER_STATUS_TAB_TITLE, serverStatus);
-		tabbedPane.addTab(CLIENT_MESSAGE_TAB_TITLE, scrollableReceiveTextBox);
+		tabbedPane.addTab(CLIENT_MESSAGE_TAB_TITLE, receiveMessagePanel);
 		tabbedPane.addTab(MESSAGE_BUILDER_TAB_TITLE, messageBuilderPanel);
 		
 		addExpandableTab(SERVER_STATUS_TAB_TITLE);
@@ -114,14 +119,6 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		addExpandableTab(MESSAGE_BUILDER_TAB_TITLE);
 
 		
-		tabbedPane.addChangeListener(changeEvent -> {
-			
-			if(tabbedPane.getSelectedIndex() == tabbedPane.indexOfComponent(scrollableReceiveTextBox)) {
-				add(clearButton, BorderLayout.SOUTH);
-			} else {
-				remove(clearButton);
-			}
-		});
 		
 		add(tabbedPane, BorderLayout.CENTER);		
 				
@@ -161,17 +158,12 @@ public class TestServerFrame extends JFrame implements KeyListener{
 		
 		ScrollableTextArea logTextArea = new ScrollableTextArea(log);
 		
-		tabbedPane.addTab(LOG_TAB_TITLE, logTextArea);
+		logPanel.add(logTextArea, BorderLayout.CENTER);
+		logPanel.add(clearLogButton, BorderLayout.SOUTH);
+		
+		tabbedPane.addTab(LOG_TAB_TITLE, logPanel);
 		addExpandableTab(LOG_TAB_TITLE);
 		
-		tabbedPane.addChangeListener(changeEvent -> {
-			
-			if(tabbedPane.getSelectedIndex() == tabbedPane.indexOfComponent(logTextArea)) {
-				add(clearLogButton, BorderLayout.SOUTH);
-			} else {
-				remove(clearLogButton);
-			}
-		});
 	}
 
 	
