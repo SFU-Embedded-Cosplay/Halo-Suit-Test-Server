@@ -9,16 +9,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.plaf.metal.MetalCheckBoxIcon;
 
 import main.java.halosuit.gui.MessageBuilder.MessageBuilderPanel;
 import main.java.halosuit.server.Server;
@@ -38,14 +35,15 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	public static final String MESSAGE_BUILDER_TAB_TITLE = "Message Builder";
 
 	private JPanel sendMessagePanel = new JPanel();	
-	private JButton sendButton = new JButton("Send");
 	private JTextField sendMessageField = new JTextField();
+	private JButton sendButton = new JButton("Send");
 		
-	private JPanel receiveMessagePanel = new JPanel(new BorderLayout());
-	private JTextArea receiveMessageBox = new JTextArea();
-	private JButton clearButton = new JButton("Clear");
+	private JPanel receivedMessagePanel = new JPanel(new BorderLayout());
+	private JTextArea receivedMessageBox = new JTextArea();
+	private JButton clearReceivedMessageButton = new JButton("Clear");
 	
 	private JPanel logPanel = new JPanel(new BorderLayout());
+	private LogDisplay log;
 	private JButton clearLogButton = new JButton("Clear");
 
 	
@@ -58,9 +56,6 @@ public class TestServerFrame extends JFrame implements KeyListener{
 			});
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
- 
-	
-	private LogDisplay log;
 	
 	
 	private static final int SEND_BUTTON_HEIGHT = 20;
@@ -69,57 +64,24 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	private static final int SEND_MESSAGE_BOX_PADDING =  30;
 	
 	public TestServerFrame(Server server) {
+		setDefaultFrameConfigurations();
+		
 		this.server = server;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle(TITLE);
-		setSize(WIDTH, HEIGHT);
-		setVisible(true);
-		setLocationRelativeTo(null);
-		setResizable(true);
-		
-		server.addInputListener((inputCharacter)->addInputCharacter(inputCharacter));
+		server.addInputListener((inputCharacter) -> {
+			addInputCharacter(inputCharacter);
+		});
 
-		
 		serverStatus = new ServerStatusPanel(server);
 		
-		sendButton.setPreferredSize(new Dimension(SEND_BUTTON_WIDTH, SEND_BUTTON_HEIGHT));
-		sendMessageField.setPreferredSize(new Dimension(WIDTH  - SEND_BUTTON_WIDTH - SEND_MESSAGE_BOX_PADDING, SEND_BUTTON_HEIGHT));
+		initializeSendMessagePanel();
+				
+		receivedMessagePanel.add(new ScrollableTextArea(receivedMessageBox), BorderLayout.CENTER);
+		receivedMessagePanel.add(clearReceivedMessageButton, BorderLayout.SOUTH);
 		
-		sendMessagePanel.add(sendMessageField);
-		sendMessagePanel.add(sendButton);
-		
-		
-		sendButton.addActionListener((e) -> {
-			sendMessageToPhone(sendMessageField.getText());
-			sendMessageField.setText("");
-		});
-		
-		clearButton.addActionListener((e)->{
-			receiveMessageBox.setText(""); // clears text area
-		});
-		
-		clearLogButton.addActionListener((e)->{
-			log.setText(""); // clears text area
-		});
+		setButtonActionListeners();				
+		addDefaultTabs();
 		
 		add(sendMessagePanel, BorderLayout.NORTH);
-				
-		ScrollableTextArea scrollableReceiveTextBox = new ScrollableTextArea(receiveMessageBox);
-		
-		receiveMessagePanel.add(scrollableReceiveTextBox, BorderLayout.CENTER);
-		receiveMessagePanel.add(clearButton, BorderLayout.SOUTH);
-				
-		tabbedPane.addTab(SERVER_STATUS_TAB_TITLE, serverStatus);
-		tabbedPane.addTab(CLIENT_MESSAGE_TAB_TITLE, receiveMessagePanel);
-		tabbedPane.addTab(MESSAGE_BUILDER_TAB_TITLE, messageBuilderPanel);
-		
-		addExpandableTab(SERVER_STATUS_TAB_TITLE);
-		addExpandableTab(CLIENT_MESSAGE_TAB_TITLE);
-		addExpandableTab(MESSAGE_BUILDER_TAB_TITLE);
-
-		
-		
 		add(tabbedPane, BorderLayout.CENTER);		
 				
 		sendMessageField.addKeyListener(this);
@@ -131,7 +93,7 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	}
 	
 	private void addInputCharacter(char inputCharacter) {
-		receiveMessageBox.append("" + inputCharacter);
+		receivedMessageBox.append("" + inputCharacter);
 	}
 	
 	private void sendMessageToPhone(String message) {		
@@ -149,6 +111,48 @@ public class TestServerFrame extends JFrame implements KeyListener{
 			//should not happen at the moment, find a way to deal with this.
 			e.printStackTrace();
 		} 
+	}
+	
+	private void setDefaultFrameConfigurations() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle(TITLE);
+		setSize(WIDTH, HEIGHT);
+		setVisible(true);
+		setLocationRelativeTo(null);
+		setResizable(true);
+	}
+	
+	private void initializeSendMessagePanel() {
+		sendButton.setPreferredSize(new Dimension(SEND_BUTTON_WIDTH, SEND_BUTTON_HEIGHT));
+		sendMessageField.setPreferredSize(new Dimension(WIDTH  - SEND_BUTTON_WIDTH - SEND_MESSAGE_BOX_PADDING, SEND_BUTTON_HEIGHT));
+		
+		sendMessagePanel.add(sendMessageField);
+		sendMessagePanel.add(sendButton);
+	}
+	
+	private void addDefaultTabs() {
+		tabbedPane.addTab(SERVER_STATUS_TAB_TITLE, serverStatus);
+		tabbedPane.addTab(CLIENT_MESSAGE_TAB_TITLE, receivedMessagePanel);
+		tabbedPane.addTab(MESSAGE_BUILDER_TAB_TITLE, messageBuilderPanel);
+		
+		addExpandableTab(SERVER_STATUS_TAB_TITLE);
+		addExpandableTab(CLIENT_MESSAGE_TAB_TITLE);
+		addExpandableTab(MESSAGE_BUILDER_TAB_TITLE);
+	}
+	
+	private void setButtonActionListeners() {
+		sendButton.addActionListener((e) -> {
+			sendMessageToPhone(sendMessageField.getText());
+			sendMessageField.setText("");
+		});
+		
+		clearReceivedMessageButton.addActionListener((e) -> {
+			receivedMessageBox.setText(""); // clears text area
+		});
+		
+		clearLogButton.addActionListener((e) -> {
+			log.setText(""); // clears text area
+		});
 	}
 	
 	public void addLogDisplay(LogDisplay log) {
