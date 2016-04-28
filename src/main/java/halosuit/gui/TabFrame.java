@@ -31,6 +31,10 @@ public class TabFrame extends JFrame {
 				
 		this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
+            	if(index > tabbedPane.getTabCount()) {
+            		index = tabbedPane.getTabCount();
+            	}
+            	
             	tabbedPane.insertTab(title, null, tabContent, "", index);
             	ExpandableTab.addExpandableTab(title, tabbedPane);
             }
