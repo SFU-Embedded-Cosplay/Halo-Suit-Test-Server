@@ -142,8 +142,14 @@ public class TestServerFrame extends JFrame implements KeyListener{
 	
 	private void setButtonActionListeners() {
 		sendButton.addActionListener((e) -> {
-			sendMessageToPhone(sendMessageField.getText());
-			sendMessageField.setText("");
+			if(serverStatus.isClientConnected()) {
+				serverStatus.sendMessageToClient(sendMessageField.getText());
+				sendMessageField.setText("");
+				sendMessageToPhone("{}");
+			} else {
+				sendMessageToPhone(sendMessageField.getText());
+				sendMessageField.setText("");
+			}
 		});
 		
 		clearReceivedMessageButton.addActionListener((e) -> {
