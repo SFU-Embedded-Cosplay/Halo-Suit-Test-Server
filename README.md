@@ -24,5 +24,5 @@ When using the mock hardware module in the Halo-Suit-BeagleBones you need to use
  1. If you connect the beaglebone using another method, such as an ethernet cable, the connection between the Test Server and BeagleBone may not work and you will likely have to change the IP address in the mockHardware.c file.
 3. SSH into the BeagleBone using **ssh root@192.168.7.2**
 4. Compile the Halo-Suit-BeagleBone application using **make localTest**.
-5. Launch the suitcontroller application that is generated using **./suitcontroller**.
+5. Launch the suitcontroller application that is generated using **./suitcontrollertest**.
 6. You should now be connected to the mock server and can send JSON messages from the server to the BeagleBone to alter the hardware values.  
