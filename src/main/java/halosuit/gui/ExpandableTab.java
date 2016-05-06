@@ -14,7 +14,7 @@ import javax.swing.JTabbedPane;
 public class ExpandableTab extends JPanel {
 	
 	
-	private JButton expandButton = new JButton(new ImageIcon("src\\main\\resources\\images\\plus symbol.png"));
+	private JButton expandButton = new JButton(new ImageIcon("src//main//resources//images//plus symbol.png"));
 	private JLabel title = null;
 	
 	public ExpandableTab(String title, JTabbedPane tabbedPane) {
