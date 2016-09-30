@@ -4,6 +4,29 @@
 Halo-Suit-Test-Server is an application designed to simulate the network layer between different Halo-Suit Devices. The Test Server gives developers control of both sending and receiving messages.
 It currently supports the [Android](https://github.com/SFU-Embedded-Cosplay/Halo-Suit-Android) and [BeagleBone](https://github.com/SFU-Embedded-Cosplay/Halo-Suit-BeagleBone) applications.
 
+##Working with Maven##
+The most generic way to explain how to work with maven is by using the command line.  This will first require installing Java 8, Maven 3.*. and optionally installing git, along with configuring their paths in the command line.
+
+First download the repository by either downloading the zip file or cloning the repository using (cloning recommended)
+```bash
+git clone https://github.com/SFU-Embedded-Cosplay/Halo-Suit-Test-Server
+```
+
+Install the library dependencies
+```bash
+mvn install
+```
+
+Create a JAR file 
+```bash
+mvn deploy
+```
+
+Execute the program
+```bash
+mvn exec:java -D exec.mainClass=main.java.halosuit.Main
+```
+
 ##Testing Android Device##
 In order to use the Test server to test the Android device you must make a number of configuration changes.
 
